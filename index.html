@@ -11,22 +11,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
-      --bg: #0e0d0c;
-      --surface: #181715;
-      --surface2: #201e1b;
-      --surface3: #2a2723;
-      --accent: #e8a000;
-      --accent-bright: #f5b830;
-      --accent-dim: rgba(232, 160, 0, 0.1);
-      --accent-glow: rgba(232, 160, 0, 0.2);
-      --text: #f2ece4;
-      --text-secondary: #9b9189;
-      --text-muted: #5a534a;
-      --border: rgba(232, 160, 0, 0.15);
-      --border-subtle: rgba(255, 255, 255, 0.06);
+      --bg: #f6f2ec;
+      --surface: #ffffff;
+      --surface2: #f0ebe3;
+      --surface3: #e8e2d8;
+      --accent: #b87000;
+      --accent-bright: #d08800;
+      --accent-dim: rgba(184, 112, 0, 0.09);
+      --accent-glow: rgba(184, 112, 0, 0.18);
+      --text: #1a1612;
+      --text-secondary: #574f47;
+      --text-muted: #9a9088;
+      --border: rgba(184, 112, 0, 0.2);
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.09);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.13);
       --nav-h: 64px;
-      --r: 8px;
-      --r-lg: 14px;
+      --r: 10px;
+      --r-lg: 16px;
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -44,9 +47,8 @@
     a { color: inherit; text-decoration: none; }
     strong { color: var(--text); font-weight: 700; }
 
-    /* scrollbar */
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--surface2); }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
     /* ── NAV ── */
@@ -55,17 +57,16 @@
       height: var(--nav-h); z-index: 100;
       display: flex; align-items: center;
       padding: 0 clamp(1.25rem, 5vw, 3rem);
-      transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
-      border-bottom: 1px solid transparent;
+      transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease);
     }
     .nav.scrolled {
-      background: rgba(14, 13, 12, 0.88);
-      backdrop-filter: blur(20px);
-      border-color: var(--border-subtle);
+      background: rgba(246, 242, 236, 0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--border-subtle), var(--shadow);
     }
     .nav-logo {
       font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 1.2rem; letter-spacing: -0.02em;
+      font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text);
     }
     .nav-logo em { font-style: normal; color: var(--accent); }
     .nav-links { display: flex; gap: 2rem; margin-left: auto; list-style: none; }
@@ -76,19 +77,19 @@
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -2px; left: 0;
-      width: 0; height: 1px; background: var(--accent);
+      width: 0; height: 1.5px; background: var(--accent);
       transition: width 0.25s var(--ease);
     }
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
       margin-left: 1.5rem; padding: 0.4rem 1.1rem;
-      border: 1px solid var(--accent); border-radius: var(--r);
+      border: 1.5px solid var(--accent); border-radius: var(--r);
       font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
       color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase;
       transition: all 0.2s;
     }
-    .nav-cta:hover { background: var(--accent); color: var(--bg); }
+    .nav-cta:hover { background: var(--accent); color: #fff; }
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; margin-left: auto; padding: 8px;
@@ -99,17 +100,17 @@
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .mobile-nav {
       display: none; position: fixed; inset: 0;
-      background: var(--bg); z-index: 99;
+      background: var(--surface); z-index: 99;
       flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
-      font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
       color: var(--text-secondary); transition: color 0.2s;
     }
     .mobile-nav a:hover { color: var(--accent); }
 
-    /* ── SECTION WRAPPER ── */
+    /* ── SECTION ── */
     .section-wrap {
       padding: clamp(5rem, 9vw, 8rem) clamp(1.25rem, 5vw, 3rem);
       max-width: 1100px; margin: 0 auto;
@@ -120,10 +121,10 @@
       color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
       margin-bottom: 0.9rem;
     }
-    .section-label::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent); }
+    .section-label::before { content: ''; display: block; width: 2rem; height: 1.5px; background: var(--accent); }
     .section-title {
       font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 800;
-      letter-spacing: -0.03em; margin-bottom: 3rem;
+      letter-spacing: -0.03em; margin-bottom: 3rem; color: var(--text);
     }
 
     /* ── HERO ── */
@@ -137,8 +138,8 @@
       content: '';
       position: absolute; top: 0; right: -3%; width: 55%; height: 100%;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
       background-size: 42px 42px;
       mask-image: radial-gradient(ellipse at 65% 50%, black 10%, transparent 70%);
       pointer-events: none;
@@ -154,10 +155,7 @@
       opacity: 0; animation: fadeUp 0.7s var(--ease) forwards 0.15s;
     }
     .name-ko { display: block; color: var(--text); }
-    .name-en {
-      display: block;
-      -webkit-text-stroke: 2px var(--accent); color: transparent;
-    }
+    .name-en { display: block; -webkit-text-stroke: 2px var(--accent); color: transparent; }
     .hero-role {
       font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text-secondary);
       font-weight: 300; margin-bottom: 1.75rem;
@@ -179,9 +177,9 @@
       letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
       border: none; transition: all 0.22s var(--ease);
     }
-    .btn-primary { background: var(--accent); color: var(--bg); }
-    .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); box-shadow: 0 8px 28px var(--accent-glow); }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-subtle); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); box-shadow: 0 8px 24px var(--accent-glow); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--border-subtle); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .hero-stats {
       display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem;
@@ -192,7 +190,7 @@
       display: block; font-family: 'Syne', sans-serif;
       font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1;
     }
-    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; letter-spacing: 0.05em; }
+    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; letter-spacing: 0.04em; }
 
     /* ── ABOUT ── */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
@@ -202,9 +200,10 @@
     .highlight-card {
       padding: 1.4rem 1.5rem;
       background: var(--surface); border: 1px solid var(--border-subtle);
-      border-radius: var(--r-lg); transition: all 0.25s var(--ease);
+      border-radius: var(--r-lg); box-shadow: var(--shadow);
+      transition: all 0.25s var(--ease);
     }
-    .highlight-card:hover { border-color: var(--border); background: var(--surface2); transform: translateX(4px); }
+    .highlight-card:hover { border-color: var(--border); box-shadow: var(--shadow-md); transform: translateX(4px); }
     .highlight-icon {
       width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
       background: var(--accent-dim); border-radius: 8px; color: var(--accent);
@@ -218,9 +217,9 @@
     .skill-cat {
       padding: 1.6rem; background: var(--surface);
       border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
-      transition: all 0.25s var(--ease);
+      box-shadow: var(--shadow); transition: all 0.25s var(--ease);
     }
-    .skill-cat:hover { border-color: var(--border); background: var(--surface2); transform: translateY(-3px); }
+    .skill-cat:hover { border-color: var(--border); box-shadow: var(--shadow-md); transform: translateY(-3px); }
     .skill-cat-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.15rem; }
     .skill-cat-icon {
       width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
@@ -232,7 +231,7 @@
     }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .skill-tag {
-      padding: 0.28rem 0.7rem; background: var(--surface3);
+      padding: 0.28rem 0.7rem; background: var(--surface2);
       border: 1px solid var(--border-subtle); border-radius: 4px;
       font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-secondary);
       transition: all 0.2s;
@@ -243,13 +242,13 @@
     .exp-list { position: relative; padding-left: 1.5rem; }
     .exp-list::before {
       content: ''; position: absolute; left: 0; top: 10px; bottom: 0;
-      width: 1px; background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+      width: 1.5px; background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
     }
     .exp-item { position: relative; padding-left: 2rem; padding-bottom: 3rem; }
     .exp-item:last-child { padding-bottom: 0; }
     .exp-item::before {
       content: ''; position: absolute; left: -1.5rem; top: 10px;
-      width: 9px; height: 9px; border: 2px solid var(--accent);
+      width: 10px; height: 10px; border: 2px solid var(--accent);
       border-radius: 50%; background: var(--bg); transform: translateX(-3px);
     }
     .exp-company { font-size: 1.35rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
@@ -264,6 +263,7 @@
     .exp-card {
       padding: 1.5rem; background: var(--surface);
       border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
     }
     .exp-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
     .exp-card li { display: flex; gap: 0.75rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
@@ -271,25 +271,26 @@
     .exp-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--border-subtle); }
 
     /* ── PROJECTS ── */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.35rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.35rem; }
     .project-card {
       background: var(--surface); border: 1px solid var(--border-subtle);
       border-radius: var(--r-lg); padding: 1.85rem;
-      display: flex; flex-direction: column; position: relative; overflow: hidden;
-      transition: all 0.28s var(--ease);
+      display: flex; flex-direction: column;
+      box-shadow: var(--shadow); transition: all 0.28s var(--ease);
+      cursor: pointer; position: relative; overflow: hidden;
     }
-    .project-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    .project-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       opacity: 0; transition: opacity 0.28s;
     }
-    .project-card:hover { border-color: var(--border); background: var(--surface2); transform: translateY(-5px); box-shadow: 0 18px 44px rgba(0,0,0,0.35); }
-    .project-card:hover::before { opacity: 1; }
+    .project-card:hover { border-color: var(--border); box-shadow: var(--shadow-lg); transform: translateY(-5px); }
+    .project-card:hover::after { opacity: 1; }
     .project-num {
       font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
       color: var(--text-muted); margin-bottom: 0.85rem;
     }
-    .project-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; line-height: 1.35; }
+    .project-title { font-size: 1.08rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; line-height: 1.35; }
     .project-tag {
       display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
       color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.05em;
@@ -300,10 +301,78 @@
     .project-desc li::before { content: '·'; color: var(--accent); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .tech-tag {
-      padding: 0.2rem 0.6rem; background: var(--surface3);
+      padding: 0.2rem 0.6rem; background: var(--surface2);
       border: 1px solid var(--border-subtle); border-radius: 4px;
       font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--text-muted);
     }
+    .project-more {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem; font-size: 0.78rem; color: var(--accent);
+      font-family: 'Syne', sans-serif; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(26, 22, 18, 0.5);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface); border-radius: var(--r-lg);
+      box-shadow: var(--shadow-lg); max-width: 720px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s var(--ease);
+      position: relative;
+    }
+    .modal-overlay.open .modal { transform: none; }
+    .modal-header {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky; top: 0; background: var(--surface); z-index: 1;
+    }
+    .modal-num {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+      color: var(--text-muted); margin-bottom: 0.5rem;
+    }
+    .modal-title { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; }
+    .modal-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      color: var(--accent); letter-spacing: 0.06em;
+    }
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--surface2); border: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text-secondary);
+      transition: all 0.2s; font-size: 0.9rem;
+    }
+    .modal-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .modal-body { padding: 1.75rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.75rem; }
+    .modal-section-title {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .modal-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.85; }
+    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .modal-list li { display: flex; gap: 0.7rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+    .modal-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+    .modal-team {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem; background: var(--accent-dim);
+      border: 1px solid var(--border); border-radius: 100px;
+      font-size: 0.82rem; color: var(--accent);
+    }
+    .modal-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .modal-tech .tech-tag { font-size: 0.75rem; padding: 0.28rem 0.75rem; }
 
     /* ── EDUCATION & CERTS ── */
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
@@ -315,9 +384,9 @@
     .edu-card, .cert-card {
       padding: 1.2rem 1.35rem; background: var(--surface);
       border: 1px solid var(--border-subtle); border-radius: var(--r);
-      margin-bottom: 0.85rem; transition: border-color 0.2s;
+      box-shadow: var(--shadow); margin-bottom: 0.85rem; transition: all 0.2s;
     }
-    .edu-card:hover, .cert-card:hover { border-color: var(--border); }
+    .edu-card:hover, .cert-card:hover { border-color: var(--border); box-shadow: var(--shadow-md); }
     .edu-name, .cert-name { font-weight: 600; color: var(--text); font-size: 0.92rem; margin-bottom: 0.28rem; }
     .edu-period, .cert-date {
       font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent); margin-bottom: 0.22rem;
@@ -337,7 +406,7 @@
     .contact-email {
       display: inline-flex; align-items: center; gap: 0.6rem;
       font-family: 'JetBrains Mono', monospace; font-size: 0.97rem;
-      color: var(--text); border-bottom: 1px solid var(--border-subtle);
+      color: var(--text); border-bottom: 1.5px solid var(--border-subtle);
       padding-bottom: 0.25rem; margin-bottom: 2.5rem;
       transition: all 0.2s;
     }
@@ -346,15 +415,17 @@
     .contact-links { display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
     .contact-link {
       display: inline-flex; align-items: center; gap: 0.55rem;
-      padding: 0.65rem 1.35rem; border: 1px solid var(--border-subtle);
+      padding: 0.65rem 1.35rem; border: 1.5px solid var(--border-subtle);
       border-radius: var(--r); font-size: 0.85rem; color: var(--text-secondary);
+      background: var(--surface); box-shadow: var(--shadow);
       transition: all 0.22s;
     }
-    .contact-link:hover { border-color: var(--accent); color: var(--text); background: var(--surface); transform: translateY(-2px); }
+    .contact-link:hover { border-color: var(--accent); color: var(--text); box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .contact-link i { color: var(--accent); }
     .downloads {
       padding: 1.5rem; background: var(--surface);
       border: 1px solid var(--border-subtle); border-radius: var(--r-lg);
+      box-shadow: var(--shadow);
       display: flex; flex-direction: column; align-items: center; gap: 0.9rem;
     }
     .downloads-label {
@@ -365,10 +436,10 @@
     .dl-btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.5rem 1.1rem; background: var(--accent-dim);
-      border: 1px solid var(--border); border-radius: var(--r);
+      border: 1.5px solid var(--border); border-radius: var(--r);
       font-size: 0.8rem; color: var(--accent); transition: all 0.2s;
     }
-    .dl-btn:hover { background: var(--accent); color: var(--bg); transform: translateY(-1px); }
+    .dl-btn:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
 
     /* ── FOOTER ── */
     footer {
@@ -391,6 +462,7 @@
     .stagger.visible > *:nth-child(4) { opacity:1;transform:none;transition-delay:0.24s; }
     .stagger.visible > *:nth-child(5) { opacity:1;transform:none;transition-delay:0.32s; }
     .stagger.visible > *:nth-child(6) { opacity:1;transform:none;transition-delay:0.40s; }
+    .stagger.visible > *:nth-child(7) { opacity:1;transform:none;transition-delay:0.48s; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -401,6 +473,9 @@
       .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 1.75rem; }
+      .modal { max-height: 90vh; }
+      .modal-body { padding: 1.25rem 1.25rem 1.5rem; }
+      .modal-header { padding: 1.5rem 1.25rem 1.25rem; }
     }
     @media (max-width: 480px) {
       .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
@@ -454,7 +529,7 @@
   <div class="hero-stats">
     <div><span class="stat-num">3년+</span><div class="stat-label">총 경력</div></div>
     <div><span class="stat-num">2곳</span><div class="stat-label">회사 경험</div></div>
-    <div><span class="stat-num">9개+</span><div class="stat-label">주요 프로젝트</div></div>
+    <div><span class="stat-num">7개+</span><div class="stat-label">주요 프로젝트</div></div>
     <div><span class="stat-num">AWS</span><div class="stat-label">SA Professional</div></div>
   </div>
 </div>
@@ -596,7 +671,6 @@
     <p class="section-label fade-in">Work Experience</p>
     <h2 class="section-title fade-in">경력</h2>
     <div class="exp-list">
-
       <div class="exp-item fade-in">
         <div class="exp-company">바잉스퀘어</div>
         <div class="exp-meta">
@@ -609,7 +683,7 @@
             <li>Kotlin/Spring 기반 상품 카탈로그 시스템 개발 및 Python Flask 레거시 전환 주도</li>
             <li>Null-safe 설계, Enum 상태값, DB 정규화, Soft Delete 구조 도입으로 안정성 향상</li>
             <li>Kafka 기반 이메일 서버 분리 및 팩토리 패턴 기반 모듈화 설계</li>
-            <li>Spring Batch, Kafka, SSE를 활용한 Excel 대용량 다운로드 시스템 설계</li>
+            <li>Spring Batch, Kafka, SSE를 활용한 대용량 Excel 다운로드 시스템 설계</li>
             <li>Sentry/Slack 연동 및 jsondiff 활용 에러·로그 추적 시스템 구축</li>
           </ul>
           <div class="exp-stack">
@@ -626,7 +700,6 @@
           </div>
         </div>
       </div>
-
       <div class="exp-item fade-in">
         <div class="exp-company">더커머스</div>
         <div class="exp-meta">
@@ -655,7 +728,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -664,125 +736,9 @@
 <section id="projects">
   <div class="section-wrap">
     <p class="section-label fade-in">Projects</p>
-    <h2 class="section-title fade-in">주요 프로젝트</h2>
-    <div class="projects-grid stagger">
-
-      <div class="project-card">
-        <div class="project-num">01 · 바잉스퀘어 · 2025.03 — 2025.06</div>
-        <h3 class="project-title">Python Flask → Kotlin 컨버팅</h3>
-        <span class="project-tag">레거시 마이그레이션</span>
-        <div class="project-desc">
-          <ul>
-            <li>복잡한 상속·리플렉션 구조를 Kotlin MVC 아키텍처로 전환</li>
-            <li>DB 정규화, JSON 필드 분리, Soft Delete 구조 도입</li>
-            <li>이메일 서버 분리 및 팩토리 패턴 기반 모듈화</li>
-            <li>MVC 명확화로 사이드 이펙트 추적 및 유지보수성 개선</li>
-          </ul>
-        </div>
-        <div class="project-tech">
-          <span class="tech-tag">Kotlin</span>
-          <span class="tech-tag">Spring Boot</span>
-          <span class="tech-tag">JPA</span>
-          <span class="tech-tag">Kafka</span>
-          <span class="tech-tag">MySQL</span>
-          <span class="tech-tag">Docker</span>
-          <span class="tech-tag">AWS SES</span>
-          <span class="tech-tag">GitHub Actions</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">02 · 바잉스퀘어 · 2024.11 — 2025.01</div>
-        <h3 class="project-title">셀러 어드민 시스템 구축</h3>
-        <span class="project-tag">관리자 플랫폼 개발</span>
-        <div class="project-desc">
-          <ul>
-            <li>View 테이블로 분산된 오더 정보 통합 집계</li>
-            <li>Kafka + 분산락 기반 재고 관리 시스템 설계</li>
-            <li>SSE 실시간 알림 방식 Excel 다운로드 처리 개선</li>
-            <li>AWS SecretManager X-API-KEY 기반 서비스 간 인증 간소화</li>
-          </ul>
-        </div>
-        <div class="project-tech">
-          <span class="tech-tag">Kotlin</span>
-          <span class="tech-tag">Spring Batch</span>
-          <span class="tech-tag">Apache Kafka</span>
-          <span class="tech-tag">QueryDSL</span>
-          <span class="tech-tag">SSE</span>
-          <span class="tech-tag">AWS SecretManager</span>
-          <span class="tech-tag">AOP</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">03 · 바잉스퀘어 · 2024.08 — 2024.11</div>
-        <h3 class="project-title">선적 차수 기반 주문 상태 정형화</h3>
-        <span class="project-tag">주문 시스템 재설계</span>
-        <div class="project-desc">
-          <ul>
-            <li>스프레드시트 수기 관리 → DB 모델/API 구조로 전환</li>
-            <li>결제·배송 단계를 선적 차수 단위로 세분화 및 프로세스화</li>
-            <li>개발 100% 단독 담당 (기획 2명 협업)</li>
-            <li>통계 조회 API로 실시간 추적 및 데이터 정합성 확보</li>
-          </ul>
-        </div>
-        <div class="project-tech">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Flask</span>
-          <span class="tech-tag">SQLAlchemy</span>
-          <span class="tech-tag">MySQL</span>
-          <span class="tech-tag">Kubernetes</span>
-          <span class="tech-tag">Sentry</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">04 · 바잉스퀘어 · 2024.05 — 2024.08</div>
-        <h3 class="project-title">Catalog-Shop 시스템 구축</h3>
-        <span class="project-tag">카탈로그 플랫폼 개발</span>
-        <div class="project-desc">
-          <ul>
-            <li>AWS Lambda + CloudFront로 이미지 처리 시간 <strong>80% 이상 단축</strong></li>
-            <li>해시 기반 상품 변경 감지로 업데이트 효율성 향상</li>
-            <li>MapStruct 도입으로 DTO-Entity 변환 유지보수성 향상</li>
-            <li>Python Flask BST 시스템과 REST API 연동</li>
-          </ul>
-        </div>
-        <div class="project-tech">
-          <span class="tech-tag">Kotlin</span>
-          <span class="tech-tag">Spring Boot</span>
-          <span class="tech-tag">Spring Batch</span>
-          <span class="tech-tag">AWS Lambda</span>
-          <span class="tech-tag">CloudFront</span>
-          <span class="tech-tag">Redis</span>
-          <span class="tech-tag">JWT</span>
-          <span class="tech-tag">MapStruct</span>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-num">05 · 더커머스</div>
-        <h3 class="project-title">Zipkin 기반 로그 트레이싱 시스템</h3>
-        <span class="project-tag">MSA 로그 추적 인프라</span>
-        <div class="project-desc">
-          <ul>
-            <li>Java / Python Flask / AWS Lambda 간 Trace ID 통합 관리</li>
-            <li>Python Flask에 Zipkin 추적 로직을 데코레이터 패턴으로 직접 구현</li>
-            <li>Elasticsearch 로그 검색 환경 구축 및 CloudWatch 연동</li>
-            <li>MSA 장애 추적 시간 단축 및 서비스 호출 흐름 시각화</li>
-          </ul>
-        </div>
-        <div class="project-tech">
-          <span class="tech-tag">Java</span>
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Flask</span>
-          <span class="tech-tag">Zipkin</span>
-          <span class="tech-tag">Elasticsearch</span>
-          <span class="tech-tag">AWS CloudWatch</span>
-          <span class="tech-tag">AWS Lambda</span>
-        </div>
-      </div>
-
+    <h2 class="section-title fade-in">주요 프로젝트 <span style="font-size:0.55em;font-weight:400;color:var(--text-muted);letter-spacing:0;font-family:'Noto Sans KR'">— 카드를 클릭하면 상세 정보를 볼 수 있습니다</span></h2>
+    <div class="projects-grid stagger" id="projects-grid">
+      <!-- cards injected by JS -->
     </div>
   </div>
 </section>
@@ -855,14 +811,187 @@
   <p>© 2025 이찬우 · Built with HTML / CSS / JS · Hosted on GitHub Pages</p>
 </footer>
 
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-num" id="modal-num"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-tag" id="modal-tag"></div>
+      <button class="modal-close" id="modal-close" aria-label="닫기"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
 <script>
-  // Nav scroll
+  // ── Project data ──
+  const PROJECTS = [
+    {
+      num: '01 · 바잉스퀘어 · 2025.03 — 2025.06',
+      title: 'Python Flask → Kotlin 컨버팅',
+      tag: '레거시 마이그레이션',
+      summary: ['복잡한 상속·리플렉션 구조를 Kotlin MVC 아키텍처로 전환', 'DB 정규화, JSON 필드 분리, Soft Delete 구조 도입', '이메일 서버 분리 및 팩토리 패턴 기반 모듈화'],
+      tech: ['Kotlin', 'Spring Boot', 'JPA', 'Kafka', 'MySQL', 'Docker', 'AWS SES', 'GitHub Actions', 'Sentry'],
+      overview: '기존 레거시 프로젝트는 특정 에러 처리 로직을 위해 상속, 팩토리 메소드, 메소드 리플렉션이 과도하게 사용된 구조였습니다. 이로 인해 작업 흐름이 복잡해지고 사이드 이펙트가 자주 발생하여 유지보수와 테스트가 매우 어려웠습니다. 정적 타입 기반의 Kotlin/Java로 전환을 건의하고, Spring Boot 기반 시스템으로 마이그레이션을 진행했습니다.',
+      goals: ['Python Flask 기반 레거시를 Kotlin Spring Boot 구조로 재설계', '사이드 이펙트 파악이 어려운 복잡한 구조를 명시적인 호출 구조로 변경', '불명확한 필드명 명확화 마이그레이션', '기존 Flask 프로젝트의 Email 기능을 별개의 서버로 분리'],
+      team: '총 11명 (기획 3, 백엔드 5, 프론트 3)',
+      tasks: ['레거시 Python Flask 코드 분석 및 컨버팅 우선 순위 선정', 'Kotlin 기반 Spring Boot 구조로 재설계, MVC 계층 분리와 Null-safe 구조 설계', '불명확한 칼럼명 명확화 마이그레이션, JSON 기반 필드 분리해 DB 정규화', 'deleted_at 필드 기반 가상 칼럼 중복 방지 및 Soft Delete 구조 도입', '이메일 발송 기능을 별도 Email 서버로 분리 및 팩토리 패턴 기반 구조 설계'],
+      results: ['명시적인 호출과 명확한 흐름 구조로 사이드 이펙트 추적 및 유지보수성 개선', 'DB의 JSON 필드 및 모호한 필드명을 명확하게 마이그레이션하여 데이터 조회·관리 효율화', 'Soft Delete 구조 도입으로 삭제 데이터 복구 가능 및 중복 등록 방지', '이메일 발송 기능 분리로 서비스 간 결합도 감소 및 재사용성·확장성 향상'],
+    },
+    {
+      num: '02 · 바잉스퀘어 · 2024.11 — 2025.01',
+      title: '셀러 오더 관리를 위한 셀러 어드민 시스템 구축',
+      tag: '관리자 플랫폼 개발',
+      summary: ['View 테이블로 분산된 오더 정보 통합 집계', 'Kafka + 분산락 기반 재고 관리 시스템 설계', 'SSE 실시간 알림 방식 Excel 다운로드 처리 개선'],
+      tech: ['Kotlin', 'Spring Boot', 'Spring Batch', 'Apache Kafka', 'Apache Avro', 'QueryDSL', 'SSE', 'EasyExcel', 'Kotest', 'AWS SecretManager', 'AOP'],
+      overview: '카탈로그 시스템에서 셀러는 주문 제출 시 입력된 정보만 확인할 수 있어, 오더 컨펌/취소 상태를 파악하기 어려운 문제가 있었습니다. 셀러들이 자사 브랜드의 오더 현황을 실시간으로 확인하고 바이어별 세부 상태를 파악할 수 있는 어드민 시스템을 구축했습니다.',
+      goals: ['내부 운영자가 카탈로그 어드민을 통해 오더 상태(컨펌, 결제/배송, 완료, 취소)를 확인하고 처리', '카탈로그 어드민 내 새로운 주문 관리 페이지 생성', '카탈로그 DB 내에서 직접 재고 검증 가능하도록 구현'],
+      team: '총 8명 (기획 2, 백엔드 3, 프론트 3)',
+      tasks: ['View 테이블을 활용하여 다수의 테이블에 분산된 오더 정보 통합 집계', 'AWS SecretManager를 이용한 X-API-KEY 기반 인증 방식으로 서비스 간 API 연동 간소화', 'Kafka, Avro를 이용해 주문 상태 처리와 분산락을 이용한 재고 관리 시스템 설계'],
+      results: ['기존 시스템과의 API 연동 효율화로 보안성과 개발 편의성 동시 확보', '다운로드 처리를 실시간 알림 방식으로 전환하여 Excel 다운로드 요청 처리 속도 개선', 'Kafka, AOP와 분산락을 이용한 상품별 재고 관리 효율성 향상'],
+    },
+    {
+      num: '03 · 바잉스퀘어 · 2024.08 — 2024.11',
+      title: '선적 차수 기반 주문 상태 정형화 프로젝트',
+      tag: '주문 시스템 재설계',
+      summary: ['스프레드시트 수기 관리 → DB 모델/API 구조로 전환', '결제·배송 단계를 선적 차수 단위로 세분화', '개발 100% 단독 담당 (기획 2명 협업)'],
+      tech: ['Python', 'Flask', 'SQLAlchemy', 'MySQL', 'MVC 패턴', 'JavaScript', 'Kubernetes', 'Sentry'],
+      overview: '기존 주문 시스템은 한 주문 내에 여러 단계의 결제/배송이 독립적으로 진행됨에도 단순 흐름으로 관리되고 있었습니다. 스프레드시트 기반 수기 관리로 데이터 누락·오류가 빈번했고, Pre-Order 특성상 몇 달이 소요되는 주문을 바이어에게 전달하기 어려운 문제가 있었습니다.',
+      goals: ['오더 컨펌 이후 결제/배송 단계를 별도 상태로 생성하고 세부 상태로 관리하도록 분리', '하나의 오더에서 결제/배송 상태를 공급사 납품 일정에 따라 여러 차수로 생성 가능', '모든 선적 차수가 완료되면 해당 오더를 완료 처리'],
+      team: '총 3명 (기획 2, 개발자 1) — 개발 100% 단독 담당, DB 설계 및 주문 상태 전환 로직 설계·구현 전담',
+      tasks: ['스프레드시트로 관리되던 주문 상태 흐름을 DB 모델 및 API 구조로 재설계', '기존 결제/배송 단계를 선적 차수 단위로 세분화하고 상세 단계 정의 및 프로세스화', '바이어 및 선적 차수별 결제율, 선적 정보, 잔액 등을 추적하는 통계 조회 API 설계·구현'],
+      results: ['주문 상태 데이터를 스프레드시트 수기 관리에서 시스템화하여 데이터 정합성 확보 및 오류율 감소', '선적 차수별 주문 절차 세분화로 실시간 상태 추적 및 관리 편의성 향상', '선적 단계 진행률, 합계, 잔액 등 중요 정보 명시화 및 통계 정보 추가'],
+    },
+    {
+      num: '04 · 바잉스퀘어 · 2024.05 — 2024.08',
+      title: 'Catalog-Shop 시스템 구축 프로젝트',
+      tag: '카탈로그 플랫폼 개발',
+      summary: ['AWS Lambda + CloudFront로 이미지 처리 시간 80% 이상 단축', '해시 기반 상품 변경 감지로 업데이트 효율성 향상', 'MapStruct 도입으로 DTO-Entity 변환 유지보수성 향상'],
+      tech: ['Java', 'Kotlin', 'Spring Boot', 'Spring Security', 'Spring Batch', 'JPA', 'QueryDSL', 'MapStruct', 'AWS Lambda', 'AWS CloudFront', 'Redis', 'JWT', 'Python Flask', 'AWS S3'],
+      overview: '기존 오더 프로세스는 공급사가 제공하는 엑셀 라인 시트 기반이어서 상품 정보 수정 및 활용이 어려웠습니다. Spring 기반 카탈로그를 활용한 온라인 주문 방식으로 전환하기 위한 프로젝트로, 기존 Python Flask BST 시스템과 연동하여 기존 방식으로도 주문 확인이 가능하도록 개발했습니다.',
+      goals: ['Catalog에 등록된 상품을 "딜" 기능으로 라인시트 단위로 묶어 장바구니 오더 기능 구축', '기존 Java 프로젝트의 일부를 Kotlin으로 전환하면서 진행', '기존 Python Flask BST 시스템과 연동하여 사용자가 기존 방식으로도 주문 확인 가능'],
+      team: '총 11명 (기획 3, 백엔드 5, 프론트 3)',
+      tasks: ['Kotlin Spring 기반 Catalog 시스템 개발 및 Python Flask에 REST API를 통한 상품·오더 동기화', '대용량 이미지 처리 성능 향상을 위해 AWS Lambda 비동기 리사이징 및 CloudFront 캐싱 적용', '라인시트 내 상품 변경 여부를 효율적으로 감지하기 위한 해시 기반 변경 감지 구현', '레이어 간 데이터 변환 편의성을 위해 MapStruct 도입'],
+      results: ['AWS Lambda + CloudFront 캐시 적용으로 이미지 처리 시간 80% 이상 단축', '해시 기반 변경 감지 기능으로 상품 업데이트 효율성 향상 및 오류 감소', 'MapStruct 도입으로 DTO-Entity 변환 코드 유지보수성 향상'],
+    },
+    {
+      num: '05 · 바잉스퀘어 · 2023.12 — 2024.04',
+      title: '레거시 코드 리팩토링 및 유지보수성 개선',
+      tag: '점진적 구조 개선',
+      summary: ['팩토리 메소드·메소드 리플렉션 남용 구조를 명확한 호출 방식으로 점진적 개선', '데코레이터 기반 로깅 및 Sentry 연동으로 에러 추적 구조 개선', 'Slack API 연동으로 주문 데이터 누락 시 세일즈팀 실시간 알림'],
+      tech: ['Python', 'Flask', 'JavaScript', 'Redis', 'MySQL', 'SQLAlchemy', 'Jinja2', 'Sentry', 'Kubernetes', 'Slack API', 'jsondiff'],
+      overview: '기존 레거시 프로젝트는 상속, 메서드 리플렉션, 팩토리 메소드가 과도하게 사용된 구조로 전체 프로세스 흐름 파악이 어렵고 사이드 이펙트 발생 여부를 예측하기 힘든 문제가 있었습니다. 1~2주 단위의 소규모 기능 개발 시마다 해당 영역 코드를 함께 리팩토링하여 점진적으로 구조를 개선했습니다.',
+      goals: ['팩토리 메소드로 생성한 객체를 메소드 리플렉션으로 사용하는 부분을 명확한 객체 호출 방식으로 수정', '로깅 포맷팅 개선으로 에러 발생 위치 추적 용이성 향상', '흐름 내 Transaction과 ErrorHandler를 분리하여 별개의 관심사로 처리'],
+      team: '총 1명 (백엔드 1) — 구조 개선 방향 기획과 논의 후 진행',
+      tasks: ['에러 추적을 위한 데코레이터 기반 로깅 및 Sentry 연동 구조 개선', 'Redis 및 Hook, 오류 핸들러를 통한 시스템 점검 페이지 기능 구현', 'DB 및 데이터 유효성 검사를 통한 에러 감지 기능 구현', 'Slack API 연동으로 주문 데이터 누락 시 세일즈팀 실시간 알림 발송', 'jsondiff를 활용하여 소싱팀의 데이터 수정 이력 추적 로그 저장 기능 구현'],
+      results: ['메소드 리플렉션과 상속 남용 코드 구조를 단순화하여 유지보수성 향상', '에러 처리와 트랜잭션을 데코레이터 패턴으로 분리하여 구조 단순화', '운영 중 데이터 누락/오류 발생 시 Sentry와 Slack 알람으로 에러 처리 속도 개선', '사용자 편의성을 고려한 기능 개선으로 운영팀 업무 효율성 증가'],
+    },
+    {
+      num: '06 · 더커머스',
+      title: '위탁 상품 구조 통합',
+      tag: '상품 시스템 통합',
+      summary: ['위탁 상품 구조와 데이터 모델을 기존 원셀 상품과 통합', 'Java 인터페이스 기반 설계로 재사용성 및 확장성 향상', '위탁 → 원셀 상품 전환 API 구현으로 판매 유연성 확보'],
+      tech: ['Java', 'Spring', 'Python', 'Flask', 'AWS Lambda', 'MongoDB', 'NoSQL 마이그레이션'],
+      overview: '위탁몰에서 수집된 상품의 구조와 등록 방식이 기존 상품과 달라 판매자들이 사용하기 어렵다는 피드백이 있었습니다. 위탁 상품과 기존 상품 구조를 통합하고 API 구조를 일관되게 개선하여 사용성과 시스템 통합성을 확보한 프로젝트입니다.',
+      goals: ['위탁 상품 API를 기존 상품 API와 동일한 방식으로 개선하여 인터페이스 일관화', '판매자가 위탁 상품을 원셀 상품으로 전환할 수 있는 기능 추가', '추후 위탁 쇼핑몰 추가 연동 시 쉽게 확장 가능한 구조 설계'],
+      team: '더커머스 개발팀',
+      tasks: ['Java 인터페이스를 사용하여 공통 기능을 묶고 재사용성과 확장성 향상', '위탁 상품 구조와 데이터 구조를 기존 상품과 동일하게 통합 (NoSQL 마이그레이션)', '판매자가 위탁 상품을 원셀 상품으로 전환할 수 있는 기능 및 전환 API 설계·구현'],
+      results: ['원셀 상품과 위탁 상품의 구조 통합으로 판매자 러닝 커브 감소 및 사용성 개선', '상품 전환 기능 추가로 판매 유연성 및 마케팅 전략 대응력 향상', '인터페이스 기반 설계로 추후 위탁 쇼핑몰 연동 시 쉽게 확장 가능'],
+    },
+    {
+      num: '07 · 더커머스',
+      title: 'Zipkin 기반 로그 트레이싱 시스템',
+      tag: 'MSA 로그 추적 인프라',
+      summary: ['Java / Python Flask / AWS Lambda 간 Trace ID 통합 관리', 'Python Flask에 Zipkin 추적 로직을 데코레이터 패턴으로 직접 구현', 'Elasticsearch 로그 검색 환경 구축 및 CloudWatch 연동'],
+      tech: ['Java', 'Spring', 'Python', 'Flask', 'Zipkin', 'Elasticsearch', 'AWS CloudWatch', 'AWS Lambda', 'AWS EC2', 'AWS SQS'],
+      overview: '서비스는 MSA 구조로 운영되고 있었으나 Java Spring과 Python Flask 간 로그 추적 방식이 달라 서비스 간 호출 흐름 추적이 어려운 문제가 있었습니다. Zipkin 및 Elasticsearch 기반의 통합 로그 추적 시스템을 도입하고, Python에서도 직접 추적 로직을 구현하여 전체 호출 경로를 시각화했습니다.',
+      goals: ['Java Spring, Python Flask, AWS Lambda 등 다양한 서비스 간 Trace ID 공유 및 로그 통합', 'Python Flask 서비스에 Zipkin 추적 로직 직접 구현', 'Elasticsearch를 통한 로그 검색 환경 구축 및 AWS CloudWatch 연동'],
+      team: '더커머스 개발팀',
+      tasks: ['Python Flask 서비스에 Zipkin 추적 로직을 데코레이터 기반으로 직접 구현', 'Java Spring, Python Flask, AWS Lambda 등 다양한 서비스 간 Trace ID 공유 및 로그 통합 관리 설계', 'Elasticsearch를 통한 로그 검색 환경 구축 및 AWS CloudWatch 연동', 'MSA 구조에서의 서비스 호출 흐름 추적 및 에러 트레이싱 기능 설계·구현'],
+      results: ['MSA 구조 내 서비스 간 로그 연계로 장애 추적 시간 단축 및 이슈 대응 속도 향상', 'Zipkin 도입으로 기능 간 호출 흐름 시각화 및 에러 처리 추적 간편화', 'Submodule을 이용하여 동일 언어 서비스 간 간편하게 추가·삭제 가능한 기능 개발'],
+    },
+  ];
+
+  // ── Render project cards ──
+  const grid = document.getElementById('projects-grid');
+  PROJECTS.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.dataset.idx = i;
+    card.innerHTML = `
+      <div class="project-num">${p.num}</div>
+      <h3 class="project-title">${p.title}</h3>
+      <span class="project-tag">${p.tag}</span>
+      <div class="project-desc">
+        <ul>${p.summary.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="project-tech">${p.tech.slice(0, 5).map(t => `<span class="tech-tag">${t}</span>`).join('')}${p.tech.length > 5 ? `<span class="tech-tag">+${p.tech.length - 5}</span>` : ''}</div>
+      <div class="project-more"><i class="fas fa-arrow-right"></i> 상세 보기</div>
+    `;
+    card.addEventListener('click', () => openModal(i));
+    grid.appendChild(card);
+  });
+
+  // ── Modal ──
+  const overlay = document.getElementById('modal-overlay');
+  const modalNum = document.getElementById('modal-num');
+  const modalTitle = document.getElementById('modal-title');
+  const modalTag = document.getElementById('modal-tag');
+  const modalBody = document.getElementById('modal-body');
+
+  function openModal(idx) {
+    const p = PROJECTS[idx];
+    modalNum.textContent = p.num;
+    modalTitle.textContent = p.title;
+    modalTag.textContent = p.tag;
+    modalBody.innerHTML = `
+      <div>
+        <p class="modal-section-title">// 프로젝트 개요</p>
+        <p class="modal-text">${p.overview}</p>
+      </div>
+      ${p.goals ? `<div>
+        <p class="modal-section-title">// 목표</p>
+        <ul class="modal-list">${p.goals.map(g => `<li>${g}</li>`).join('')}</ul>
+      </div>` : ''}
+      <div>
+        <p class="modal-section-title">// 인원 / 역할</p>
+        <span class="modal-team"><i class="fas fa-users" style="color:var(--accent)"></i> ${p.team}</span>
+      </div>
+      <div>
+        <p class="modal-section-title">// 주요 작업</p>
+        <ul class="modal-list">${p.tasks.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div>
+      <div>
+        <p class="modal-section-title">// 주요 성과</p>
+        <ul class="modal-list">${p.results.map(r => `<li>${r}</li>`).join('')}</ul>
+      </div>
+      <div>
+        <p class="modal-section-title">// 기술 스택</p>
+        <div class="modal-tech">${p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+      </div>
+    `;
+    document.getElementById('modal').scrollTop = 0;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Nav scroll ──
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Hamburger
+  // ── Hamburger ──
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobile-nav');
   let open = false;
@@ -879,16 +1008,12 @@
     document.body.style.overflow = '';
   }
 
-  // Intersection observer
+  // ── Intersection Observer ──
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
   document.querySelectorAll('.fade-in, .stagger').forEach(el => io.observe(el));
 </script>
 </body>
