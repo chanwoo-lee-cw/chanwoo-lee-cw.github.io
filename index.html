@@ -4,27 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>이찬우 | Backend Developer</title>
-  <meta name="description" content="Kotlin/Spring 백엔드 개발자 이찬우 포트폴리오">
+  <meta name="description" content="Kotlin/Spring 백엔드 개발자 이찬우 포트폴리오 및 이력서">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   <style>
     :root {
       --bg: #f8f7f5;
       --surface: #ffffff;
       --surface2: #f2f1ee;
+      --surface3: #eae9e5;
       --accent: #b06800;
+      --accent-light: #d4850a;
       --accent-dim: rgba(176, 104, 0, 0.08);
+      --accent-dim2: rgba(176, 104, 0, 0.15);
       --text: #111827;
       --text-secondary: #4b5563;
       --text-muted: #9ca3af;
       --border: #e5e3df;
-      --border-accent: rgba(176, 104, 0, 0.25);
+      --border-accent: rgba(176, 104, 0, 0.3);
       --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
-      --shadow: 0 2px 10px rgba(0,0,0,0.07);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.09);
-      --nav-h: 60px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+      --nav-h: 62px;
       --r: 10px;
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,9 +46,9 @@
     a { color: inherit; text-decoration: none; }
     strong { font-weight: 600; }
 
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--surface2); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
     /* ── NAV ── */
     .nav {
@@ -50,24 +56,33 @@
       height: var(--nav-h); z-index: 100;
       display: flex; align-items: center;
       padding: 0 clamp(1.25rem, 5vw, 3rem);
-      transition: background 0.25s, box-shadow 0.25s;
+      transition: background 0.3s, box-shadow 0.3s;
     }
     .nav.scrolled {
-      background: rgba(248, 247, 245, 0.93);
-      backdrop-filter: blur(12px);
+      background: rgba(248, 247, 245, 0.95);
+      backdrop-filter: blur(14px);
       box-shadow: 0 1px 0 var(--border);
     }
-    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
-    .nav-logo em { font-style: normal; color: var(--accent); }
-    .nav-links { display: flex; gap: 1.75rem; margin-left: auto; list-style: none; }
+    .nav-logo {
+      font-weight: 800; font-size: 1.05rem;
+      letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.35rem;
+    }
+    .nav-logo .dot { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; margin-left: auto; list-style: none; }
     .nav-links a {
       font-size: 0.82rem; font-weight: 500; color: var(--text-secondary);
-      transition: color 0.2s;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1.5px; background: var(--accent); transform: scaleX(0);
+      transition: transform 0.2s; transform-origin: left;
     }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
     .nav-cta {
-      margin-left: 1.5rem; padding: 0.38rem 1rem;
-      border: 1.5px solid var(--border-accent); border-radius: 6px;
+      margin-left: 1.75rem; padding: 0.4rem 1.1rem;
+      border: 1.5px solid var(--border-accent); border-radius: 7px;
       font-size: 0.8rem; font-weight: 600; color: var(--accent);
       transition: all 0.2s;
     }
@@ -83,24 +98,35 @@
     .mobile-nav {
       display: none; position: fixed; inset: 0;
       background: var(--surface); z-index: 99;
-      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
     }
     .mobile-nav.open { display: flex; }
-    .mobile-nav a { font-size: 1.5rem; font-weight: 600; color: var(--text-secondary); transition: color 0.2s; }
-    .mobile-nav a:hover { color: var(--text); }
+    .mobile-nav a { font-size: 1.5rem; font-weight: 700; color: var(--text-secondary); transition: color 0.2s; }
+    .mobile-nav a:hover { color: var(--accent); }
 
     /* ── LAYOUT ── */
     .wrap {
-      max-width: 1060px; margin: 0 auto;
-      padding: clamp(4.5rem, 8vw, 7rem) clamp(1.25rem, 5vw, 2.5rem);
+      max-width: 1080px; margin: 0 auto;
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 2.5rem);
     }
-    .section-eyebrow {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+    .section-label::before {
+      content: ''; display: block;
+      width: 20px; height: 1.5px; background: var(--accent);
     }
     .section-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700;
-      letter-spacing: -0.02em; margin-bottom: 2.5rem; color: var(--text);
+      font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800;
+      letter-spacing: -0.03em; margin-bottom: 2.75rem; color: var(--text);
+      line-height: 1.2;
+    }
+    .section-divider {
+      height: 1px; background: var(--border);
+      max-width: 1080px; margin: 0 auto;
     }
 
     /* ── HERO ── */
@@ -108,275 +134,338 @@
       min-height: 100vh; display: flex; flex-direction: column;
       justify-content: center;
       padding-top: calc(var(--nav-h) + 3rem);
-      padding-bottom: 3rem;
-      max-width: 1060px; margin: 0 auto;
+      padding-bottom: 4rem;
+      max-width: 1080px; margin: 0 auto;
       padding-left: clamp(1.25rem, 5vw, 2.5rem);
       padding-right: clamp(1.25rem, 5vw, 2.5rem);
     }
-    .hero-label {
-      display: inline-block; font-size: 0.78rem; font-weight: 500;
-      color: var(--accent); letter-spacing: 0.06em;
-      margin-bottom: 1.25rem;
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.1s;
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.35rem 1rem; background: var(--accent-dim);
+      border: 1px solid var(--border-accent); border-radius: 100px;
+      font-size: 0.76rem; font-weight: 600; color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.1s;
     }
+    .hero-badge i { font-size: 0.7rem; }
     .hero-name {
-      font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 800;
-      letter-spacing: -0.03em; line-height: 1.05;
-      color: var(--text); margin-bottom: 1rem;
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.2s;
+      font-size: clamp(3rem, 9vw, 6rem); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1;
+      color: var(--text); margin-bottom: 0.6rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.2s;
     }
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.2rem); font-weight: 400;
+    .hero-name .en {
+      font-size: 0.38em; font-weight: 400; letter-spacing: 0.01em;
+      color: var(--text-muted); display: block; margin-top: 0.3em;
+      font-family: var(--mono);
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 500;
       color: var(--text-secondary); margin-bottom: 1.5rem;
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.3s;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.3s;
     }
     .hero-desc {
-      max-width: 480px; font-size: 0.95rem; color: var(--text-secondary);
-      line-height: 1.85; margin-bottom: 2.25rem;
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.4s;
+      max-width: 520px; font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.9; margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.4s;
     }
     .hero-actions {
       display: flex; gap: 0.85rem; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.5s;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.5s;
     }
     .btn {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      padding: 0.65rem 1.4rem; border-radius: var(--r);
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.5rem; border-radius: var(--r);
       font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      border: none; transition: all 0.2s;
+      border: none; transition: all 0.2s; font-family: inherit;
     }
     .btn-primary { background: var(--accent); color: #fff; }
-    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(176,104,0,0.25); }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(176,104,0,0.3); }
     .btn-ghost { background: transparent; color: var(--text-secondary); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: #c0bdb9; color: var(--text); transform: translateY(-1px); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .hero-meta {
+      display: flex; gap: 1.5rem; margin-top: 3.5rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.6s;
+    }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .hero-meta-item i { color: var(--accent); font-size: 0.78rem; }
+    .hero-meta-item a:hover { color: var(--accent); }
     .hero-stats {
-      display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem;
-      border-top: 1px solid var(--border);
-      opacity: 0; animation: fadeUp 0.5s var(--ease) forwards 0.6s;
+      display: flex; gap: 3rem; margin-top: 2.5rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) forwards 0.7s;
     }
-    .stat-num { display: block; font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; }
-    .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      height: 1px; background: var(--border);
-      max-width: 1060px; margin: 0 auto;
-    }
+    .stat-num { display: block; font-size: 2rem; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.3rem; }
 
     /* ── ABOUT ── */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
-    .about-text p { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.85; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--text-secondary); margin-bottom: 1.1rem; line-height: 1.9; font-size: 0.95rem; }
     .about-text p:last-child { margin-bottom: 0; }
-    .highlight-list { display: flex; flex-direction: column; gap: 0.85rem; }
-    .highlight-card {
-      display: flex; gap: 1rem; padding: 1.2rem 1.25rem;
+    .values-list { display: flex; flex-direction: column; gap: 1rem; }
+    .value-card {
+      display: flex; gap: 1rem; padding: 1.25rem;
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--r); box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.2s, border-color 0.2s;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
     }
-    .highlight-card:hover { box-shadow: var(--shadow); border-color: var(--border-accent); }
-    .highlight-icon {
-      width: 32px; height: 32px; flex-shrink: 0;
+    .value-card:hover { box-shadow: var(--shadow); border-color: var(--border-accent); transform: translateX(4px); }
+    .value-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      background: var(--accent-dim); border-radius: 8px;
-      color: var(--accent); font-size: 0.85rem; margin-top: 2px;
+      background: var(--accent-dim); border-radius: 9px;
+      color: var(--accent); font-size: 0.9rem; margin-top: 1px;
     }
-    .highlight-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
-    .highlight-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+    .value-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .value-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
 
     /* ── SKILLS ── */
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1rem; }
     .skill-cat {
-      padding: 1.35rem; background: var(--surface);
+      padding: 1.4rem; background: var(--surface);
       border: 1px solid var(--border); border-radius: var(--r);
       box-shadow: var(--shadow-sm); transition: box-shadow 0.2s, border-color 0.2s;
     }
     .skill-cat:hover { box-shadow: var(--shadow); border-color: var(--border-accent); }
     .skill-cat-name {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.85rem;
-      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.55rem;
     }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .skill-tag {
-      padding: 0.22rem 0.65rem; background: var(--surface2);
+      padding: 0.25rem 0.7rem; background: var(--surface2);
       border: 1px solid var(--border); border-radius: 5px;
       font-size: 0.75rem; color: var(--text-secondary); transition: all 0.15s;
-      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-family: var(--mono);
     }
     .skill-tag:hover { border-color: var(--border-accent); color: var(--accent); background: var(--accent-dim); }
 
-    /* ── EXPERIENCE ── */
-    .exp-list { display: flex; flex-direction: column; gap: 2.5rem; }
-    .exp-item {
-      display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem;
-      padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+    /* ── EXPERIENCE (TIMELINE) ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border));
     }
-    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .exp-left { display: flex; flex-direction: column; }
-    .exp-company { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
-    .exp-period { font-size: 0.78rem; color: var(--accent); font-weight: 500; margin-bottom: 0.2rem; }
-    .exp-duration {
-      display: inline-block; font-size: 0.72rem; color: var(--text-muted);
+    .timeline-item {
+      position: relative; margin-bottom: 3rem;
+      padding-bottom: 3rem; border-bottom: 1px dashed var(--border);
+    }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute; left: -2.4rem; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .timeline-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .timeline-company { font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+    .timeline-role { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; margin-top: 0.2rem; }
+    .timeline-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+    .timeline-period {
+      font-size: 0.8rem; font-weight: 600; color: var(--accent);
+      font-family: var(--mono);
+    }
+    .timeline-duration {
+      font-size: 0.72rem; color: var(--text-muted);
       background: var(--surface2); border: 1px solid var(--border);
-      padding: 0.1rem 0.5rem; border-radius: 4px; margin-bottom: 0.4rem;
+      padding: 0.1rem 0.55rem; border-radius: 4px;
     }
-    .exp-role { font-size: 0.8rem; color: var(--text-muted); }
-    .exp-right { min-width: 0; }
-    .exp-list-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
-    .exp-list-items li {
-      display: flex; gap: 0.65rem; font-size: 0.88rem;
-      color: var(--text-secondary); line-height: 1.6;
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.1rem; }
+    .exp-bullets li {
+      display: flex; gap: 0.75rem; font-size: 0.88rem;
+      color: var(--text-secondary); line-height: 1.65;
     }
-    .exp-list-items li::before { content: '·'; color: var(--accent); flex-shrink: 0; font-weight: bold; }
+    .exp-bullets li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.25rem; }
     .exp-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
     .tech-tag {
-      padding: 0.18rem 0.55rem; background: var(--surface2);
+      padding: 0.2rem 0.6rem; background: var(--surface2);
       border: 1px solid var(--border); border-radius: 4px;
       font-size: 0.72rem; color: var(--text-muted);
-      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-family: var(--mono);
     }
 
     /* ── PROJECTS ── */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.1rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.1rem; }
     .project-card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 1.5rem;
+      border-radius: var(--r); padding: 1.6rem;
       display: flex; flex-direction: column;
-      box-shadow: var(--shadow-sm); transition: all 0.2s;
-      cursor: pointer;
+      box-shadow: var(--shadow-sm); transition: all 0.25s;
+      cursor: pointer; position: relative; overflow: hidden;
     }
-    .project-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-accent); transform: translateY(-3px); }
-    .project-num { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.65rem; }
-    .project-title { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; line-height: 1.4; }
-    .project-tag { font-size: 0.72rem; color: var(--accent); font-weight: 500; margin-bottom: 0.85rem; }
-    .project-summary { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.65; flex: 1; margin-bottom: 1rem; }
-    .project-summary ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
-    .project-summary li { display: flex; gap: 0.5rem; align-items: flex-start; }
-    .project-summary li::before { content: '–'; color: var(--accent); flex-shrink: 0; }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .project-card:hover { box-shadow: var(--shadow-md); border-color: var(--border-accent); transform: translateY(-4px); }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-num { font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.7rem; font-family: var(--mono); }
+    .project-title { font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; line-height: 1.35; letter-spacing: -0.01em; }
+    .project-tag {
+      display: inline-block; font-size: 0.7rem; color: var(--accent);
+      font-weight: 600; margin-bottom: 1rem;
+      background: var(--accent-dim); padding: 0.15rem 0.6rem;
+      border-radius: 4px; border: 1px solid var(--border-accent);
+    }
+    .project-summary { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.7; flex: 1; margin-bottom: 1.1rem; }
+    .project-summary ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .project-summary li { display: flex; gap: 0.55rem; align-items: flex-start; }
+    .project-summary li::before { content: '–'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
     .project-footer {
       display: flex; align-items: center; justify-content: space-between;
-      padding-top: 0.85rem; border-top: 1px solid var(--border);
+      padding-top: 1rem; border-top: 1px solid var(--border);
     }
     .project-tech-preview { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .project-more { font-size: 0.75rem; color: var(--accent); font-weight: 600; white-space: nowrap; display: flex; align-items: center; gap: 0.3rem; }
+    .project-more {
+      font-size: 0.75rem; color: var(--accent); font-weight: 700;
+      white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .project-card:hover .project-more { gap: 0.55rem; }
 
     /* ── MODAL ── */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 200;
-      background: rgba(17, 24, 39, 0.45);
-      backdrop-filter: blur(4px);
+      background: rgba(17, 24, 39, 0.5);
+      backdrop-filter: blur(6px);
       display: flex; align-items: center; justify-content: center;
       padding: 1.5rem;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.25s;
+      transition: opacity 0.3s;
     }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
     .modal {
-      background: var(--surface); border-radius: 14px;
+      background: var(--surface); border-radius: 16px;
       border: 1px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      max-width: 680px; width: 100%;
-      max-height: 86vh; overflow-y: auto;
-      transform: translateY(16px);
-      transition: transform 0.25s var(--ease);
+      box-shadow: var(--shadow-lg);
+      max-width: 760px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.3s var(--ease);
     }
     .modal-overlay.open .modal { transform: none; }
     .modal-header {
-      padding: 1.75rem 1.75rem 1.25rem;
+      padding: 2rem 2rem 1.5rem;
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; background: var(--surface); z-index: 1;
     }
-    .modal-num { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.4rem; }
-    .modal-title { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; letter-spacing: -0.01em; }
-    .modal-tag { font-size: 0.75rem; color: var(--accent); font-weight: 500; }
+    .modal-num { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.4rem; font-family: var(--mono); }
+    .modal-title { font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 0.35rem; letter-spacing: -0.02em; }
+    .modal-tag { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
     .modal-close {
-      position: absolute; top: 1.2rem; right: 1.2rem;
-      width: 32px; height: 32px; border-radius: 50%;
+      position: absolute; top: 1.4rem; right: 1.4rem;
+      width: 34px; height: 34px; border-radius: 50%;
       background: var(--surface2); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--text-muted); font-size: 0.8rem;
+      cursor: pointer; color: var(--text-muted); font-size: 0.85rem;
       transition: all 0.15s;
     }
     .modal-close:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .modal-body { padding: 1.5rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: 1.5rem; }
-    .modal-block-title {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    .modal-body { padding: 1.75rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.75rem; }
+    .modal-section-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.65rem;
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    .modal-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
-    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-    .modal-list li { display: flex; gap: 0.65rem; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; }
-    .modal-list li::before { content: '·'; color: var(--accent); flex-shrink: 0; font-weight: bold; }
+    .modal-section-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .modal-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.85; }
+    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .modal-list li { display: flex; gap: 0.75rem; font-size: 0.87rem; color: var(--text-secondary); line-height: 1.65; }
+    .modal-list li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.65rem; margin-top: 0.3rem; }
     .modal-team {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      padding: 0.35rem 0.85rem; background: var(--accent-dim);
-      border: 1px solid var(--border-accent); border-radius: 6px;
-      font-size: 0.82rem; color: var(--accent); font-weight: 500;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem; background: var(--accent-dim);
+      border: 1px solid var(--border-accent); border-radius: 7px;
+      font-size: 0.83rem; color: var(--accent); font-weight: 600;
     }
-    .modal-tech { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .modal-tech .tech-tag { font-size: 0.73rem; padding: 0.22rem 0.65rem; }
+    .modal-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .modal-tech .tech-tag { font-size: 0.74rem; padding: 0.25rem 0.7rem; }
+
+    /* Mermaid container */
+    .mermaid-wrap {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem;
+      overflow-x: auto;
+    }
+    .mermaid-wrap .mermaid { min-width: 100%; }
 
     /* ── EDUCATION & CERTS ── */
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-    .edu-group-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .edu-group-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .edu-group-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
     .edu-card, .cert-card {
-      padding: 1.1rem 1.2rem; background: var(--surface);
+      padding: 1.2rem 1.3rem; background: var(--surface);
       border: 1px solid var(--border); border-radius: var(--r);
       box-shadow: var(--shadow-sm); margin-bottom: 0.75rem;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .edu-card:hover, .cert-card:hover { border-color: var(--border-accent); }
-    .edu-name, .cert-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
-    .edu-period, .cert-date { font-size: 0.75rem; color: var(--accent); font-weight: 500; margin-bottom: 0.2rem; }
-    .edu-sub, .cert-sub { font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; }
+    .edu-card:hover, .cert-card:hover { border-color: var(--border-accent); box-shadow: var(--shadow); }
+    .edu-name, .cert-name { font-weight: 700; font-size: 0.92rem; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+    .edu-period, .cert-date { font-size: 0.76rem; color: var(--accent); font-weight: 600; margin-bottom: 0.25rem; font-family: var(--mono); }
+    .edu-sub, .cert-sub { font-size: 0.79rem; color: var(--text-muted); line-height: 1.5; }
 
     /* ── CONTACT ── */
-    .contact-wrap { max-width: 520px; }
-    .contact-row {
-      display: flex; flex-direction: column; gap: 0.5rem;
-      margin-bottom: 2rem; max-width: 360px;
-    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 2rem; }
+    .contact-chips { display: flex; flex-direction: column; gap: 0.6rem; max-width: 340px; }
     .contact-chip {
-      display: flex; align-items: center; gap: 0.85rem;
-      padding: 0.75rem 1.1rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.85rem 1.2rem;
       border: 1.5px solid var(--border); border-radius: var(--r);
       font-size: 0.88rem; font-weight: 500; color: var(--text-secondary);
       background: var(--surface); box-shadow: var(--shadow-sm);
       transition: all 0.2s;
     }
-    .contact-chip:hover { border-color: var(--border-accent); color: var(--text); box-shadow: var(--shadow); transform: translateX(3px); }
-    .contact-chip i { color: var(--accent); font-size: 0.85rem; width: 16px; text-align: center; flex-shrink: 0; }
-    .downloads-box {
-      padding: 1.25rem 1.35rem; background: var(--surface);
-      border: 1px solid var(--border); border-radius: var(--r);
-      box-shadow: var(--shadow-sm);
+    .contact-chip:hover { border-color: var(--border-accent); color: var(--accent); box-shadow: var(--shadow); transform: translateX(4px); }
+    .contact-chip i { color: var(--accent); font-size: 0.88rem; width: 18px; text-align: center; flex-shrink: 0; }
+    .resume-box {
+      background: linear-gradient(135deg, var(--accent-dim), var(--surface));
+      border: 1.5px solid var(--border-accent); border-radius: 14px;
+      padding: 2rem; text-align: center;
     }
-    .downloads-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.85rem; }
-    .download-links { display: flex; gap: 0.65rem; flex-wrap: wrap; }
-    .dl-btn {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      padding: 0.45rem 0.95rem; background: var(--accent-dim);
-      border: 1.5px solid var(--border-accent); border-radius: 7px;
-      font-size: 0.8rem; color: var(--accent); font-weight: 500;
-      transition: all 0.2s;
-    }
-    .dl-btn:hover { background: var(--accent); color: #fff; }
+    .resume-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .resume-box p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
+    .resume-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 
     /* ── FOOTER ── */
     footer {
-      text-align: center; padding: 1.75rem;
+      text-align: center; padding: 2rem;
       border-top: 1px solid var(--border);
       font-size: 0.78rem; color: var(--text-muted);
     }
 
-    /* ── FADE IN ── */
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
     .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── PRINT ── */
+    @media print {
+      .nav, .hamburger, .mobile-nav, .modal-overlay, .hero-actions, .resume-actions { display: none !important; }
+      body { font-size: 12px; }
+      .hero { min-height: auto; padding-top: 1rem; }
+      .wrap { padding: 1.5rem 1rem; }
+      .project-card { break-inside: avoid; }
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -386,9 +475,14 @@
       .edu-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
-      .exp-item { grid-template-columns: 1fr; gap: 0.75rem; }
-      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-      .hero-stats > * { flex: 0 0 calc(50% - 1.25rem); }
+      .timeline { padding-left: 1.5rem; }
+      .timeline-header { flex-direction: column; }
+      .timeline-meta { align-items: flex-start; }
+      .hero-stats { gap: 1.75rem; flex-wrap: wrap; }
+      .hero-meta { gap: 1rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .modal-body { padding: 1.25rem 1.25rem 1.5rem; }
+      .modal-header { padding: 1.5rem 1.25rem 1.1rem; }
     }
   </style>
 </head>
@@ -396,18 +490,17 @@
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <div class="nav-logo">이찬우<em>.</em></div>
+  <div class="nav-logo">이찬우<span class="dot">.</span></div>
   <ul class="nav-links">
     <li><a href="#about">소개</a></li>
     <li><a href="#skills">기술</a></li>
     <li><a href="#experience">경력</a></li>
     <li><a href="#projects">프로젝트</a></li>
+    <li><a href="#education">학력</a></li>
     <li><a href="#contact">연락</a></li>
   </ul>
   <a href="#contact" class="nav-cta">연락하기</a>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- MOBILE NAV -->
@@ -416,27 +509,34 @@
   <a href="#skills"     onclick="closeMenu()">기술</a>
   <a href="#experience" onclick="closeMenu()">경력</a>
   <a href="#projects"   onclick="closeMenu()">프로젝트</a>
+  <a href="#education"  onclick="closeMenu()">학력</a>
   <a href="#contact"    onclick="closeMenu()">연락</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <span class="hero-label">Backend Developer</span>
-  <h1 class="hero-name">이찬우</h1>
-  <p class="hero-sub">Kotlin / Spring · 백엔드 개발자 · 경력 3년 4개월</p>
+  <span class="hero-badge"><i class="fas fa-circle" style="color:var(--accent);font-size:0.5rem"></i> Backend Developer · Kotlin / Spring</span>
+  <h1 class="hero-name">이찬우<span class="en">Lee Chan-woo</span></h1>
+  <p class="hero-title">Kotlin · Spring Boot · AWS · MSA</p>
   <p class="hero-desc">
-    레거시 시스템을 개선하고, 안정적이며 유지보수하기 쉬운 백엔드 시스템을 구축합니다.
+    레거시 시스템을 개선하고, 안정적이며 유지보수하기 쉬운 백엔드 시스템을 구축합니다.<br>
     사용자와 팀 모두를 위한 확장 가능한 아키텍처를 중요하게 생각합니다.
   </p>
   <div class="hero-actions">
     <a href="#projects" class="btn btn-primary"><i class="fas fa-layer-group"></i> 프로젝트 보기</a>
     <a href="#contact"  class="btn btn-ghost"><i class="fas fa-envelope"></i> 연락하기</a>
   </div>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><i class="fas fa-envelope"></i><a href="mailto:ritualforrain@naver.com">ritualforrain@naver.com</a></div>
+    <div class="hero-meta-item"><i class="fas fa-phone"></i><span>010-2112-3266</span></div>
+    <div class="hero-meta-item"><i class="fab fa-github"></i><a href="https://github.com/chanwoo-lee-cw" target="_blank" rel="noopener">chanwoo-lee-cw</a></div>
+    <div class="hero-meta-item"><i class="fas fa-pen-nib"></i><a href="https://velog.io/@alphanewbie" target="_blank" rel="noopener">기술 블로그</a></div>
+  </div>
   <div class="hero-stats">
     <div><span class="stat-num">3년+</span><div class="stat-label">총 경력</div></div>
     <div><span class="stat-num">2곳</span><div class="stat-label">회사 경험</div></div>
     <div><span class="stat-num">7개+</span><div class="stat-label">주요 프로젝트</div></div>
-    <div><span class="stat-num">AWS</span><div class="stat-label">SA Professional</div></div>
+    <div><span class="stat-num">SAP</span><div class="stat-label">AWS Certified</div></div>
   </div>
 </div>
 
@@ -445,8 +545,8 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">About Me</p>
-    <h2 class="section-title fade-in">안정적인 시스템, 지속 가능한 코드</h2>
+    <p class="section-label fade-in">About Me</p>
+    <h2 class="section-title fade-in">안정적인 시스템,<br>지속 가능한 코드</h2>
     <div class="about-grid">
       <div class="about-text fade-in">
         <p>
@@ -461,27 +561,38 @@
           Kafka, Redis, Spring Batch 등 실무 기술을 활용해 동시성 이슈를 해결하고,
           시스템 안정성을 단계적으로 개선해 나가는 방식을 선호합니다.
         </p>
+        <p>
+          AWS Solutions Architect Professional 자격증을 보유하고 있으며,
+          클라우드 인프라 설계와 비용 최적화에도 관심을 가지고 있습니다.
+        </p>
       </div>
-      <div class="highlight-list fade-in">
-        <div class="highlight-card">
-          <div class="highlight-icon"><i class="fas fa-code-branch"></i></div>
+      <div class="values-list fade-in">
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-code-branch"></i></div>
           <div>
             <h4>레거시 마이그레이션</h4>
             <p>Python Flask에서 Kotlin Spring Boot로의 무중단 전환을 설계하고 주도했습니다.</p>
           </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-shield-halved"></i></div>
           <div>
             <h4>시스템 안정성</h4>
             <p>Null-safe 설계, Enum 상태값, Soft Delete 구조로 안정성과 유지보수성을 향상시킵니다.</p>
           </div>
         </div>
-        <div class="highlight-card">
-          <div class="highlight-icon"><i class="fas fa-network-wired"></i></div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fas fa-network-wired"></i></div>
           <div>
             <h4>MSA & 분산 시스템</h4>
             <p>Kafka, 분산락, SSE를 활용한 비동기 처리 및 서비스 간 결합도 감소를 경험했습니다.</p>
+          </div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon"><i class="fab fa-aws"></i></div>
+          <div>
+            <h4>Cloud Architecture</h4>
+            <p>Lambda, ECS, CloudFront 등 AWS 서비스를 활용한 확장 가능한 인프라를 설계합니다.</p>
           </div>
         </div>
       </div>
@@ -494,7 +605,7 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">Tech Stack</p>
+    <p class="section-label fade-in">Tech Stack</p>
     <h2 class="section-title fade-in">기술 스택</h2>
     <div class="skills-grid fade-in">
       <div class="skill-cat">
@@ -568,66 +679,75 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">Work Experience</p>
+    <p class="section-label fade-in">Work Experience</p>
     <h2 class="section-title fade-in">경력</h2>
-    <div class="exp-list">
-      <div class="exp-item fade-in">
-        <div class="exp-left">
-          <div class="exp-company">바잉스퀘어</div>
-          <div class="exp-period">2023.11 — 2025.06</div>
-          <div class="exp-duration">1년 8개월</div>
-          <div class="exp-role">플랫폼 개발자</div>
-        </div>
-        <div class="exp-right">
-          <ul class="exp-list-items">
-            <li>Kotlin/Spring 기반 상품 카탈로그 시스템 개발 및 Python Flask 레거시 전환 주도</li>
-            <li>Null-safe 설계, Enum 상태값, DB 정규화, Soft Delete 구조 도입으로 안정성 향상</li>
-            <li>Kafka 기반 이메일 서버 분리 및 팩토리 패턴 기반 모듈화 설계</li>
-            <li>Spring Batch, Kafka, SSE를 활용한 대용량 Excel 다운로드 시스템 설계</li>
-            <li>Sentry/Slack 연동 및 jsondiff 활용 에러·로그 추적 시스템 구축</li>
-          </ul>
-          <div class="exp-stack">
-            <span class="tech-tag">Kotlin</span>
-            <span class="tech-tag">Spring Boot</span>
-            <span class="tech-tag">Spring Batch</span>
-            <span class="tech-tag">Apache Kafka</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Flask</span>
-            <span class="tech-tag">MySQL</span>
-            <span class="tech-tag">Redis</span>
-            <span class="tech-tag">Docker</span>
-            <span class="tech-tag">Kubernetes</span>
+    <div class="timeline fade-in">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">바잉스퀘어</div>
+            <div class="timeline-role">플랫폼 개발자</div>
+          </div>
+          <div class="timeline-meta">
+            <span class="timeline-period">2023.11 — 2025.06</span>
+            <span class="timeline-duration">1년 8개월</span>
           </div>
         </div>
-      </div>
-      <div class="exp-item fade-in">
-        <div class="exp-left">
-          <div class="exp-company">더커머스</div>
-          <div class="exp-period">2021.12 — 2023.07</div>
-          <div class="exp-duration">1년 8개월</div>
-          <div class="exp-role">백엔드 개발자</div>
+        <ul class="exp-bullets">
+          <li>Kotlin/Spring 기반 상품 카탈로그 시스템 개발 및 Python Flask 레거시 전환 주도</li>
+          <li>Null-safe 설계, Enum 상태값, DB 정규화, Soft Delete 구조 도입으로 안정성 향상</li>
+          <li>Kafka 기반 이메일 서버 분리 및 팩토리 패턴 기반 모듈화 설계</li>
+          <li>Spring Batch, Kafka, SSE를 활용한 대용량 Excel 다운로드 시스템 설계</li>
+          <li>Sentry/Slack 연동 및 jsondiff 활용 에러·로그 추적 시스템 구축</li>
+        </ul>
+        <div class="exp-stack">
+          <span class="tech-tag">Kotlin</span>
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">Spring Batch</span>
+          <span class="tech-tag">Apache Kafka</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Kubernetes</span>
         </div>
-        <div class="exp-right">
-          <ul class="exp-list-items">
-            <li>24개 커머스 플랫폼 상품 동시 등록·관리 MSA 플랫폼 개발</li>
-            <li>SKU·옵션·쇼핑몰 상품 통합 일괄 등록 시스템 재구축 및 엑셀 업로드 로직 개선</li>
-            <li>AWS Lambda 기반 병렬 처리 구조 설계로 대량 상품 등록 처리 속도 향상</li>
-            <li>Zipkin/Elasticsearch 기반 로그 트레이싱 시스템 구축으로 장애 진단 속도 개선</li>
-            <li>위탁 상품과 원셀 상품 구조 통합 및 인터페이스 일관화</li>
-          </ul>
-          <div class="exp-stack">
-            <span class="tech-tag">Java</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Spring Boot</span>
-            <span class="tech-tag">Flask</span>
-            <span class="tech-tag">AWS Lambda</span>
-            <span class="tech-tag">AWS ECS</span>
-            <span class="tech-tag">MongoDB</span>
-            <span class="tech-tag">Zipkin</span>
-            <span class="tech-tag">Elasticsearch</span>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-header">
+          <div>
+            <div class="timeline-company">더커머스</div>
+            <div class="timeline-role">백엔드 개발자</div>
+          </div>
+          <div class="timeline-meta">
+            <span class="timeline-period">2021.12 — 2023.07</span>
+            <span class="timeline-duration">1년 8개월</span>
           </div>
         </div>
+        <ul class="exp-bullets">
+          <li>24개 커머스 플랫폼 상품 동시 등록·관리 MSA 플랫폼 개발</li>
+          <li>SKU·옵션·쇼핑몰 상품 통합 일괄 등록 시스템 재구축 및 엑셀 업로드 로직 개선</li>
+          <li>AWS Lambda 기반 병렬 처리 구조 설계로 대량 상품 등록 처리 속도 향상</li>
+          <li>Zipkin/Elasticsearch 기반 로그 트레이싱 시스템 구축으로 장애 진단 속도 개선</li>
+          <li>위탁 상품과 원셀 상품 구조 통합 및 인터페이스 일관화</li>
+        </ul>
+        <div class="exp-stack">
+          <span class="tech-tag">Java</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">AWS Lambda</span>
+          <span class="tech-tag">AWS ECS</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Zipkin</span>
+          <span class="tech-tag">Elasticsearch</span>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -637,18 +757,18 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">Projects</p>
-    <h2 class="section-title fade-in">주요 프로젝트 <small style="font-size:0.45em;font-weight:400;color:var(--text-muted)">카드를 클릭하면 상세 내용을 확인할 수 있습니다</small></h2>
+    <p class="section-label fade-in">Projects</p>
+    <h2 class="section-title fade-in">주요 프로젝트 <small style="font-size:0.4em;font-weight:400;color:var(--text-muted)">카드를 클릭하면 상세 내용을 확인할 수 있습니다</small></h2>
     <div class="projects-grid fade-in" id="projects-grid"></div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- EDUCATION & CERTS -->
+<!-- EDUCATION -->
 <section id="education">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">Background</p>
+    <p class="section-label fade-in">Background</p>
     <h2 class="section-title fade-in">학력 및 자격증</h2>
     <div class="edu-grid">
       <div class="fade-in">
@@ -686,29 +806,41 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
-    <p class="section-eyebrow fade-in">Contact</p>
+    <p class="section-label fade-in">Contact</p>
     <h2 class="section-title fade-in">함께 일해요</h2>
-    <div class="contact-wrap">
-      <p class="fade-in" style="color:var(--text-secondary);margin-bottom:1.75rem;font-size:0.95rem;">새로운 기회나 협업에 대해 언제든지 연락 주세요.</p>
-      <div class="contact-row fade-in">
-        <a href="mailto:ritualforrain@naver.com" class="contact-chip">
-          <i class="fas fa-envelope"></i>ritualforrain@naver.com
-        </a>
-        <a href="tel:01021123266" class="contact-chip">
-          <i class="fas fa-phone"></i>010-2112-3266
-        </a>
-        <a href="https://github.com/chanwoo-lee-cw" target="_blank" rel="noopener" class="contact-chip">
-          <i class="fab fa-github"></i>GitHub
-        </a>
-        <a href="https://velog.io/@alphanewbie" target="_blank" rel="noopener" class="contact-chip">
-          <i class="fas fa-pen-nib"></i>기술 블로그
-        </a>
+    <div class="contact-grid">
+      <div class="fade-in">
+        <p class="contact-desc">새로운 기회나 협업에 대해 언제든지 연락 주세요.<br>백엔드 시스템 설계, 레거시 마이그레이션, 분산 시스템 구축 등 다양한 분야에서 협력할 수 있습니다.</p>
+        <div class="contact-chips">
+          <a href="mailto:ritualforrain@naver.com" class="contact-chip">
+            <i class="fas fa-envelope"></i>ritualforrain@naver.com
+          </a>
+          <a href="tel:01021123266" class="contact-chip">
+            <i class="fas fa-phone"></i>010-2112-3266
+          </a>
+          <a href="https://github.com/chanwoo-lee-cw" target="_blank" rel="noopener" class="contact-chip">
+            <i class="fab fa-github"></i>github.com/chanwoo-lee-cw
+          </a>
+          <a href="https://velog.io/@alphanewbie" target="_blank" rel="noopener" class="contact-chip">
+            <i class="fas fa-pen-nib"></i>velog.io/@alphanewbie
+          </a>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="resume-box">
+          <h3>이력서 / 포트폴리오</h3>
+          <p>이 페이지는 이찬우의 포트폴리오 이력서입니다.<br>브라우저에서 인쇄하거나 PDF로 저장할 수 있습니다.</p>
+          <div class="resume-actions">
+            <button onclick="window.print()" class="btn btn-primary"><i class="fas fa-print"></i> 인쇄하기</button>
+            <a href="https://github.com/chanwoo-lee-cw" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<footer>© 2025 이찬우 · GitHub Pages</footer>
+<footer>© 2025 이찬우 · GitHub Pages · Backend Developer</footer>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay">
@@ -724,6 +856,8 @@
 </div>
 
 <script>
+mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose', fontFamily: 'Pretendard Variable, sans-serif' });
+
 const PROJECTS = [
   {
     num: '01 · 바잉스퀘어 · 2025.03 — 2025.06',
@@ -736,6 +870,17 @@ const PROJECTS = [
     team: '총 11명 (기획 3, 백엔드 5, 프론트 3)',
     tasks: ['레거시 Python Flask 코드 분석 및 컨버팅 우선순위 선정', 'Kotlin 기반 Spring Boot 구조로 재설계, MVC 계층 분리와 Null-safe 구조 설계', '불명확한 칼럼명 명확화 마이그레이션, JSON 기반 필드 분리해 DB 정규화', 'deleted_at 필드 기반 가상 칼럼 중복 방지 및 Soft Delete 구조 도입', '이메일 발송 기능을 별도 Email 서버로 분리 및 팩토리 패턴 기반 구조 설계'],
     results: ['명시적인 호출과 명확한 흐름 구조로 사이드 이펙트 추적 및 유지보수성 개선', 'DB의 JSON 필드 및 모호한 필드명을 명확하게 마이그레이션하여 데이터 조회·관리 효율화', 'Soft Delete 구조 도입으로 삭제 데이터 복구 가능 및 중복 등록 방지', '이메일 발송 기능 분리로 서비스 간 결합도 감소 및 재사용성·확장성 향상'],
+    mermaid: `flowchart LR
+    A["Python Flask\\n레거시 시스템"] -->|"분석 & 우선순위"| B["마이그레이션\\n계획"]
+    B --> C["Kotlin Spring Boot\\nMVC 재설계"]
+    B --> D["DB 정규화\\nSoft Delete"]
+    B --> E["Email 서버\\n분리"]
+    C --> F["새 시스템\\n운영"]
+    D --> F
+    E --> G["Email Service\\n독립 운영"]
+    style A fill:#fef3c7,stroke:#d97706
+    style F fill:#d1fae5,stroke:#059669
+    style G fill:#dbeafe,stroke:#3b82f6`
   },
   {
     num: '02 · 바잉스퀘어 · 2024.11 — 2025.01',
@@ -748,6 +893,21 @@ const PROJECTS = [
     team: '총 8명 (기획 2, 백엔드 3, 프론트 3)',
     tasks: ['View 테이블을 활용하여 다수의 테이블에 분산된 오더 정보 통합 집계', 'AWS SecretManager를 이용한 X-API-KEY 기반 인증 방식으로 서비스 간 API 연동 간소화', 'Kafka, Avro를 이용해 주문 상태 처리와 분산락을 이용한 재고 관리 시스템 설계'],
     results: ['기존 시스템과의 API 연동 효율화로 보안성과 개발 편의성 동시 확보', '다운로드 처리를 실시간 알림 방식으로 전환하여 Excel 다운로드 요청 처리 속도 개선', 'Kafka, AOP와 분산락을 이용한 상품별 재고 관리 효율성 향상'],
+    mermaid: `sequenceDiagram
+    participant S as Seller Admin
+    participant API as Admin API
+    participant K as Kafka
+    participant DB as Catalog DB
+    participant SSE as SSE Server
+    S->>API: 오더 상태 조회 요청
+    API->>DB: View 테이블 집계 조회
+    DB-->>API: 통합 오더 정보
+    API-->>S: 오더 현황 응답
+    S->>API: Excel 다운로드 요청
+    API->>K: 다운로드 작업 발행
+    K->>API: 작업 처리
+    API->>SSE: 완료 알림 발송
+    SSE-->>S: 실시간 알림`
   },
   {
     num: '03 · 바잉스퀘어 · 2024.08 — 2024.11',
@@ -760,6 +920,19 @@ const PROJECTS = [
     team: '총 3명 (기획 2, 개발자 1) — 개발 100% 단독 담당',
     tasks: ['스프레드시트로 관리되던 주문 상태 흐름을 DB 모델 및 API 구조로 재설계', '기존 결제/배송 단계를 선적 차수 단위로 세분화하고 상세 단계 정의 및 프로세스화', '바이어 및 선적 차수별 결제율, 선적 정보, 잔액 등을 추적하는 통계 조회 API 설계·구현'],
     results: ['주문 상태 데이터를 시스템화하여 데이터 정합성 확보 및 오류율 감소', '선적 차수별 주문 절차 세분화로 실시간 상태 추적 및 관리 편의성 향상', '선적 단계 진행률, 합계, 잔액 등 중요 정보 명시화 및 통계 정보 추가'],
+    mermaid: `stateDiagram-v2
+    [*] --> 주문접수
+    주문접수 --> 오더컨펌 : 컨펌 승인
+    오더컨펌 --> 선적차수생성 : 선적 일정 등록
+    선적차수생성 --> 결제대기 : 차수 생성
+    결제대기 --> 결제완료 : 결제 처리
+    결제완료 --> 배송중 : 선적 시작
+    배송중 --> 차수완료 : 배송 완료
+    차수완료 --> 선적차수생성 : 다음 차수
+    차수완료 --> 오더완료 : 전체 완료
+    오더완료 --> [*]
+    오더컨펌 --> 취소 : 취소 처리
+    취소 --> [*]`
   },
   {
     num: '04 · 바잉스퀘어 · 2024.05 — 2024.08',
@@ -772,6 +945,15 @@ const PROJECTS = [
     team: '총 11명 (기획 3, 백엔드 5, 프론트 3)',
     tasks: ['Kotlin Spring 기반 Catalog 시스템 개발 및 Python Flask에 REST API를 통한 상품·오더 동기화', '대용량 이미지 처리 성능 향상을 위해 AWS Lambda 비동기 리사이징 및 CloudFront 캐싱 적용', '라인시트 내 상품 변경 여부를 효율적으로 감지하기 위한 해시 기반 변경 감지 구현', '레이어 간 데이터 변환 편의성을 위해 MapStruct 도입'],
     results: ['AWS Lambda + CloudFront 캐시 적용으로 이미지 처리 시간 80% 이상 단축', '해시 기반 변경 감지 기능으로 상품 업데이트 효율성 향상 및 오류 감소', 'MapStruct 도입으로 DTO-Entity 변환 코드 유지보수성 향상'],
+    mermaid: `flowchart LR
+    U["사용자\\n이미지 업로드"] --> S3["AWS S3\\n원본 저장"]
+    S3 --> L["AWS Lambda\\n비동기 리사이징"]
+    L --> S3R["AWS S3\\n리사이즈 저장"]
+    S3R --> CF["AWS CloudFront\\nCDN 캐싱"]
+    CF --> C["클라이언트\\n빠른 로딩 ⚡"]
+    style U fill:#ede9fe,stroke:#7c3aed
+    style CF fill:#dbeafe,stroke:#3b82f6
+    style C fill:#d1fae5,stroke:#059669`
   },
   {
     num: '05 · 바잉스퀘어 · 2023.12 — 2024.04',
@@ -784,6 +966,18 @@ const PROJECTS = [
     team: '총 1명 (백엔드 1) — 구조 개선 방향 기획과 논의 후 진행',
     tasks: ['에러 추적을 위한 데코레이터 기반 로깅 및 Sentry 연동 구조 개선', 'Redis 및 Hook, 오류 핸들러를 통한 시스템 점검 페이지 기능 구현', 'DB 및 데이터 유효성 검사를 통한 에러 감지 기능 구현', 'Slack API 연동으로 주문 데이터 누락 시 세일즈팀 실시간 알림 발송', 'jsondiff를 활용하여 소싱팀의 데이터 수정 이력 추적 로그 저장 기능 구현'],
     results: ['메소드 리플렉션과 상속 남용 코드 구조를 단순화하여 유지보수성 향상', '에러 처리와 트랜잭션을 데코레이터 패턴으로 분리하여 구조 단순화', '운영 중 데이터 누락/오류 발생 시 Sentry와 Slack 알람으로 에러 처리 속도 개선', '사용자 편의성을 고려한 기능 개선으로 운영팀 업무 효율성 증가'],
+    mermaid: `flowchart TD
+    E["에러 발생"] --> D["@decorator\\n로깅 처리"]
+    D --> TX["Transaction\\n관심사 분리"]
+    D --> EH["ErrorHandler\\n관심사 분리"]
+    TX --> DB["DB 롤백"]
+    EH --> SE["Sentry\\n에러 캡처"]
+    EH --> SL["Slack\\n실시간 알림"]
+    SE --> DEV["개발팀 대응"]
+    SL --> OPS["운영팀 대응"]
+    style E fill:#fee2e2,stroke:#ef4444
+    style SE fill:#fef3c7,stroke:#d97706
+    style SL fill:#d1fae5,stroke:#059669`
   },
   {
     num: '06 · 더커머스',
@@ -796,6 +990,32 @@ const PROJECTS = [
     team: '더커머스 개발팀',
     tasks: ['Java 인터페이스를 사용하여 공통 기능을 묶고 재사용성과 확장성 향상', '위탁 상품 구조와 데이터 구조를 기존 상품과 동일하게 통합 (NoSQL 마이그레이션)', '판매자가 위탁 상품을 원셀 상품으로 전환할 수 있는 기능 및 전환 API 설계·구현'],
     results: ['원셀 상품과 위탁 상품의 구조 통합으로 판매자 러닝 커브 감소 및 사용성 개선', '상품 전환 기능 추가로 판매 유연성 및 마케팅 전략 대응력 향상', '인터페이스 기반 설계로 추후 위탁 쇼핑몰 연동 시 쉽게 확장 가능'],
+    mermaid: `classDiagram
+    class Product {
+        <<interface>>
+        +getId() String
+        +getTitle() String
+        +getPrice() Long
+        +getImages() List
+        +register() void
+    }
+    class OwnProduct {
+        -id: String
+        -title: String
+        -price: Long
+        +register() void
+        +convertToOwn() void
+    }
+    class ConsignProduct {
+        -id: String
+        -sourceUrl: String
+        -originalPrice: Long
+        +register() void
+        +convertToOwn() OwnProduct
+    }
+    Product <|.. OwnProduct
+    Product <|.. ConsignProduct
+    ConsignProduct --> OwnProduct : 전환`
   },
   {
     num: '07 · 더커머스',
@@ -808,6 +1028,21 @@ const PROJECTS = [
     team: '더커머스 개발팀',
     tasks: ['Python Flask 서비스에 Zipkin 추적 로직을 데코레이터 기반으로 직접 구현', 'Java Spring, Python Flask, AWS Lambda 등 서비스 간 Trace ID 공유 및 로그 통합 관리 설계', 'Elasticsearch를 통한 로그 검색 환경 구축 및 AWS CloudWatch 연동', 'MSA 구조에서의 서비스 호출 흐름 추적 및 에러 트레이싱 기능 설계·구현'],
     results: ['MSA 구조 내 서비스 간 로그 연계로 장애 추적 시간 단축 및 이슈 대응 속도 향상', 'Zipkin 도입으로 기능 간 호출 흐름 시각화 및 에러 처리 추적 간편화', 'Submodule을 이용하여 동일 언어 서비스 간 간편하게 추가·삭제 가능한 기능 개발'],
+    mermaid: `sequenceDiagram
+    participant A as Java Spring
+    participant B as Python Flask
+    participant C as AWS Lambda
+    participant Z as Zipkin Server
+    participant E as Elasticsearch
+    A->>B: 요청 (traceId: abc123)
+    Note over A,B: X-B3-TraceId 헤더 전파
+    B->>C: 이벤트 발행 (traceId: abc123)
+    Note over B,C: @zipkin_decorator 자동 추적
+    A-->>Z: Span 전송
+    B-->>Z: Span 전송
+    C-->>Z: Span 전송
+    Z->>E: 로그 인덱싱
+    Note over Z,E: 전체 호출 흐름 시각화`
   },
 ];
 
@@ -831,60 +1066,103 @@ PROJECTS.forEach((p, i) => {
 });
 
 // Modal
-const overlay  = document.getElementById('modal-overlay');
-const mNum     = document.getElementById('modal-num');
-const mTitle   = document.getElementById('modal-title');
-const mTag     = document.getElementById('modal-tag');
-const mBody    = document.getElementById('modal-body');
+const overlay = document.getElementById('modal-overlay');
+const mNum    = document.getElementById('modal-num');
+const mTitle  = document.getElementById('modal-title');
+const mTag    = document.getElementById('modal-tag');
+const mBody   = document.getElementById('modal-body');
+
+let mermaidCounter = 0;
 
 function openModal(i) {
   const p = PROJECTS[i];
   mNum.textContent   = p.num;
   mTitle.textContent = p.title;
   mTag.textContent   = p.tag;
+
+  mermaidCounter++;
+  const mId = 'mermaid-' + mermaidCounter;
+
   mBody.innerHTML = `
-    <div><p class="modal-block-title">프로젝트 개요</p><p class="modal-text">${p.overview}</p></div>
-    ${p.goals?`<div><p class="modal-block-title">목표</p><ul class="modal-list">${p.goals.map(g=>`<li>${g}</li>`).join('')}</ul></div>`:''}
-    <div><p class="modal-block-title">인원 / 역할</p><span class="modal-team"><i class="fas fa-users"></i> ${p.team}</span></div>
-    <div><p class="modal-block-title">주요 작업</p><ul class="modal-list">${p.tasks.map(t=>`<li>${t}</li>`).join('')}</ul></div>
-    <div><p class="modal-block-title">주요 성과</p><ul class="modal-list">${p.results.map(r=>`<li>${r}</li>`).join('')}</ul></div>
-    <div><p class="modal-block-title">기술 스택</p><div class="modal-tech">${p.tech.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div></div>
+    <div>
+      <p class="modal-section-title">프로젝트 개요</p>
+      <p class="modal-text">${p.overview}</p>
+    </div>
+    ${p.goals ? `<div>
+      <p class="modal-section-title">목표</p>
+      <ul class="modal-list">${p.goals.map(g=>`<li>${g}</li>`).join('')}</ul>
+    </div>` : ''}
+    <div>
+      <p class="modal-section-title">인원 / 역할</p>
+      <span class="modal-team"><i class="fas fa-users"></i> ${p.team}</span>
+    </div>
+    <div>
+      <p class="modal-section-title">주요 작업</p>
+      <ul class="modal-list">${p.tasks.map(t=>`<li>${t}</li>`).join('')}</ul>
+    </div>
+    ${p.mermaid ? `<div>
+      <p class="modal-section-title">시스템 구조 / 아키텍처</p>
+      <div class="mermaid-wrap">
+        <div class="mermaid" id="${mId}">${p.mermaid}</div>
+      </div>
+    </div>` : ''}
+    <div>
+      <p class="modal-section-title">주요 성과</p>
+      <ul class="modal-list">${p.results.map(r=>`<li>${r}</li>`).join('')}</ul>
+    </div>
+    <div>
+      <p class="modal-section-title">기술 스택</p>
+      <div class="modal-tech">${p.tech.map(t=>`<span class="tech-tag">${t}</span>`).join('')}</div>
+    </div>
   `;
+
   document.getElementById('modal').scrollTop = 0;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  if (p.mermaid) {
+    setTimeout(() => {
+      mermaid.run({ nodes: [document.getElementById(mId)] }).catch(console.error);
+    }, 50);
+  }
 }
+
 function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
 }
+
 document.getElementById('modal-close').addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Nav
+// Nav scroll
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), { passive: true });
 
 // Hamburger
 const hb = document.getElementById('hamburger');
 const mn = document.getElementById('mobile-nav');
-let open = false;
+let menuOpen = false;
 hb.addEventListener('click', () => {
-  open = !open;
-  hb.classList.toggle('open', open);
-  mn.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
+  menuOpen = !menuOpen;
+  hb.classList.toggle('open', menuOpen);
+  mn.classList.toggle('open', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
 });
 function closeMenu() {
-  open = false; hb.classList.remove('open'); mn.classList.remove('open');
+  menuOpen = false;
+  hb.classList.remove('open');
+  mn.classList.remove('open');
   document.body.style.overflow = '';
 }
 
 // Scroll fade-in
 const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 </script>
 </body>
