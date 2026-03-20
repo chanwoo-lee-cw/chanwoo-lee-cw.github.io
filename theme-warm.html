@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이찬우 | Backend Developer — Warm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ea580c;
+      --primary-light: #fff7ed;
+      --primary-mid: #fed7aa;
+      --primary-dark: #c2410c;
+      --accent2: #0891b2;
+      --text: #1c1917;
+      --text-muted: #78716c;
+      --border: #e7e5e4;
+      --bg: #fdf8f3;
+      --white: #ffffff;
+      --surface: #fff9f5;
+      --shadow: 0 2px 8px rgba(180,80,20,0.08), 0 8px 24px rgba(180,80,20,0.06);
+      --shadow-lg: 0 8px 32px rgba(180,80,20,0.12);
+      --radius: 16px;
+      --tag-bg: #fef3c7;
+      --serif: 'Playfair Display', Georgia, serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* Warm background pattern */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(circle at 20% 20%, rgba(234,88,12,0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(8,145,178,0.04) 0%, transparent 50%);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(253,248,243,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--serif); font-weight: 700; font-size: 1.2rem;
+      color: var(--primary); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* SECTIONS */
+    section { padding: 90px 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; color: var(--primary); text-transform: uppercase;
+      letter-spacing: 0.15em; margin-bottom: 0.6rem; display: block;
+    }
+    .section-title {
+      font-family: var(--serif); font-size: 2.25rem; font-weight: 700;
+      margin-bottom: 2.5rem; line-height: 1.2;
+    }
+    .section-divider { display: none; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, #fff7ed 0%, #fdf8f3 40%, #ecfeff 100%);
+      padding-top: 64px; position: relative; overflow: hidden;
+    }
+    #hero::after {
+      content: '{ }';
+      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+      font-size: 28rem; font-weight: 900; color: rgba(234,88,12,0.04);
+      line-height: 1; pointer-events: none; user-select: none;
+      font-family: monospace;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--primary); display: block; }
+    .hero-name {
+      font-family: var(--serif); font-size: clamp(3rem, 6vw, 5rem); font-weight: 800;
+      line-height: 1.05; margin-bottom: 0.5rem; letter-spacing: -0.02em;
+    }
+    .hero-name .accent {
+      color: var(--primary);
+      -webkit-text-stroke: 0;
+    }
+    .hero-sub {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--text-muted);
+      margin-bottom: 1.75rem; font-style: italic;
+    }
+    .hero-desc { font-size: 1rem; color: #57534e; max-width: 580px; line-height: 1.85; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.75rem 1.6rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(234,88,12,0.3); }
+    .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--border); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .hero-stats { display: flex; gap: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .stat-num { font-family: var(--serif); font-size: 2.25rem; font-weight: 800; color: var(--primary); }
+    .stat-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+    /* SKILLS */
+    #skills { background: white; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem; }
+    .skill-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.5rem; transition: all 0.2s;
+    }
+    .skill-card:hover { border-color: var(--primary-mid); box-shadow: var(--shadow); }
+    .skill-card-title { font-weight: 700; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text); display: flex; align-items: center; gap: 0.4rem; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      background: var(--tag-bg); color: #92400e; font-size: 0.78rem; font-weight: 500;
+      padding: 0.25rem 0.65rem; border-radius: 100px;
+    }
+    .tag.highlight { background: var(--primary); color: white; }
+
+    /* CAREER */
+    #career { background: var(--bg); }
+    .career-list { display: flex; flex-direction: column; gap: 2rem; }
+    .career-card {
+      background: white; border-radius: var(--radius); padding: 2rem 2rem 2rem 2.5rem;
+      box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .career-accent {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--accent2) 100%);
+    }
+    .career-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem; }
+    .career-company { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; }
+    .career-period {
+      font-size: 0.82rem; color: var(--primary); background: var(--primary-light);
+      padding: 0.3rem 0.9rem; border-radius: 100px; white-space: nowrap; font-weight: 600;
+    }
+    .career-role { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; font-style: italic; }
+    .career-tasks { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.25rem; }
+    .career-tasks li { font-size: 0.9rem; padding-left: 1.4rem; position: relative; }
+    .career-tasks li::before { content: '✦'; position: absolute; left: 0; color: var(--primary); font-size: 0.65rem; top: 0.3rem; }
+    .career-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    /* PROJECTS */
+    #projects { background: white; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--bg); border-radius: var(--radius); padding: 1.75rem;
+      cursor: pointer; transition: all 0.25s; position: relative;
+      border: 1px solid transparent;
+    }
+    .project-card:hover {
+      border-color: var(--primary-mid); box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .project-num-dot {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--primary-light);
+      color: var(--primary); font-weight: 700; font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .project-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; }
+    .project-period { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .project-summary { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.25rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .project-arrow {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      color: var(--primary-mid); font-size: 1.2rem; transition: all 0.2s;
+    }
+    .project-card:hover .project-arrow { color: var(--primary); transform: translateX(3px); }
+
+    /* CERTIFICATIONS */
+    #certifications { background: var(--bg); }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    .cert-card {
+      background: white; border-radius: var(--radius); padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start; box-shadow: var(--shadow);
+    }
+    .cert-icon { font-size: 2rem; flex-shrink: 0; }
+    .cert-name { font-family: var(--serif); font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+    .cert-detail { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* CONTACT */
+    #contact { background: white; }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .contact-item {
+      background: var(--bg); border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none; color: var(--text); transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .contact-item:hover { border-color: var(--primary-mid); background: var(--primary-light); }
+    .contact-emoji { font-size: 1.4rem; }
+    .contact-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .contact-value { font-size: 0.875rem; font-weight: 600; margin-top: 0.1rem; }
+
+    footer {
+      background: var(--text); color: #a8a29e; text-align: center;
+      padding: 2rem; font-size: 0.85rem;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(28,25,23,0.6);
+      z-index: 1000; overflow-y: auto; padding: 2rem 1rem; backdrop-filter: blur(8px);
+    }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal {
+      background: white; border-radius: 20px; max-width: 860px; width: 100%;
+      box-shadow: 0 20px 60px rgba(180,80,20,0.15); position: relative;
+      animation: modalIn 0.25s ease;
+    }
+    @keyframes modalIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .modal-header {
+      padding: 2rem 2rem 1.5rem; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: white; border-radius: 20px 20px 0 0; z-index: 1;
+    }
+    .modal-badge { font-size: 0.72rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .modal-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; line-height: 1.3; }
+    .modal-meta { display: flex; gap: 1.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .modal-meta span { font-size: 0.83rem; color: var(--text-muted); }
+    .modal-close {
+      position: absolute; top: 1.5rem; right: 1.5rem; width: 32px; height: 32px;
+      border: 1px solid var(--border); background: var(--bg); border-radius: 50%;
+      cursor: pointer; font-size: 0.9rem; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--primary-light); border-color: var(--primary-mid); color: var(--primary); }
+    .modal-body { padding: 2rem; }
+    .modal-section { margin-bottom: 2rem; }
+    .modal-section-title {
+      font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .modal-section-title::before { content: '✦'; font-size: 0.6rem; }
+    .modal-desc { font-size: 0.9rem; line-height: 1.85; color: #44403c; }
+    .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .modal-list li { font-size: 0.9rem; padding-left: 1.5rem; position: relative; line-height: 1.7; color: #44403c; }
+    .modal-list li::before { content: '✦'; position: absolute; left: 0; color: var(--primary); font-size: 0.6rem; top: 0.4rem; }
+    .modal-achievement { background: var(--primary-light); border-radius: 12px; padding: 0.75rem 1rem; }
+    .modal-img { width: 100%; border-radius: 12px; border: 1px solid var(--border); margin: 0.75rem 0; }
+    .modal-stack { background: var(--bg); border-radius: 12px; padding: 1rem; font-size: 0.875rem; line-height: 1.8; color: var(--text-muted); }
+    .diagram-label { font-size: 0.8rem; font-weight: 600; color: var(--primary); margin: 1.25rem 0 0.4rem; }
+    .mermaid-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; overflow-x: auto; margin: 0.5rem 0; }
+    .mermaid { font-size: 13px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      #hero::after { display: none; }
+      section { padding: 60px 1.25rem; }
+      .modal-body, .modal-header { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Theme switcher -->
+<div style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;">
+  <div style="font-size:0.7rem;color:#a8a29e;font-weight:600;margin-bottom:0.25rem;">THEMES</div>
+  <a href="index.html" style="background:white;border:1px solid #e7e5e4;color:#78716c;padding:0.4rem 0.85rem;border-radius:100px;font-size:0.75rem;font-weight:600;text-decoration:none;">☀ Light</a>
+  <a href="theme-dark.html" style="background:white;border:1px solid #e7e5e4;color:#78716c;padding:0.4rem 0.85rem;border-radius:100px;font-size:0.75rem;font-weight:600;text-decoration:none;">◉ Dark</a>
+  <a href="theme-warm.html" style="background:#ea580c;border:1px solid #ea580c;color:white;padding:0.4rem 0.85rem;border-radius:100px;font-size:0.75rem;font-weight:600;text-decoration:none;">🍊 Warm</a>
+  <a href="theme-minimal.html" style="background:white;border:1px solid #e7e5e4;color:#78716c;padding:0.4rem 0.85rem;border-radius:100px;font-size:0.75rem;font-weight:600;text-decoration:none;">◈ Minimal</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">이찬우</a>
+    <ul class="nav-links">
+      <li><a href="#skills">기술스택</a></li>
+      <li><a href="#career">경력</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#certifications">자격증</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Backend Developer</div>
+    <h1 class="hero-name">이찬우<span class="accent">.</span></h1>
+    <p class="hero-sub">Lee Chan Woo</p>
+    <p class="hero-desc">
+      Kotlin/Spring 기반으로 백엔드 시스템을 구축하고, 레거시 구조를 개선하여 유지보수성과 안정성을 고민하며 개발합니다.
+      Python/Flask 서비스를 Kotlin/Spring 아키텍처로 점진적으로 전환한 마이그레이션 경험이 있으며,
+      Kafka · Redis · Spring Batch 등을 활용해 동시성 이슈를 해결해왔습니다.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">프로젝트 보기 →</a>
+      <a href="#contact" class="btn btn-outline">연락하기</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3년 4개월</div><div class="stat-label">총 경력</div></div>
+      <div><div class="stat-num">6</div><div class="stat-label">주요 프로젝트</div></div>
+      <div><div class="stat-num">2</div><div class="stat-label">자격증</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <span class="section-label">Stack</span>
+    <h2 class="section-title">기술 스택</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-title">💻 언어</div>
+        <div class="tag-list">
+          <span class="tag highlight">Kotlin</span><span class="tag highlight">Java</span>
+          <span class="tag">Python</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🍃 Framework</div>
+        <div class="tag-list">
+          <span class="tag highlight">Spring Boot</span><span class="tag highlight">Spring Batch</span>
+          <span class="tag">Spring Security</span><span class="tag">JPA</span>
+          <span class="tag">QueryDSL</span><span class="tag">Flask</span>
+          <span class="tag">FastAPI</span><span class="tag">SQLAlchemy</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🗄 DB / Infra</div>
+        <div class="tag-list">
+          <span class="tag highlight">MySQL</span><span class="tag highlight">Redis</span>
+          <span class="tag">MongoDB</span><span class="tag highlight">Apache Kafka</span>
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">☁️ AWS</div>
+        <div class="tag-list">
+          <span class="tag">EC2</span><span class="tag">Lambda</span>
+          <span class="tag">S3</span><span class="tag">SQS</span>
+          <span class="tag">ECS</span><span class="tag">CloudFront</span>
+          <span class="tag">Secrets Manager</span><span class="tag">SES</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🔧 DevOps</div>
+        <div class="tag-list">
+          <span class="tag">Git</span><span class="tag">GitHub Actions</span>
+          <span class="tag">Gradle</span><span class="tag">Sentry</span>
+          <span class="tag">Zipkin</span><span class="tag">Elasticsearch</span>
+          <span class="tag">MapStruct</span><span class="tag">AOP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career">
+  <div class="section-inner">
+    <span class="section-label">Experience</span>
+    <h2 class="section-title">경력 <span style="font-size:1.1rem;color:var(--text-muted);font-style:italic;">총 3년 4개월</span></h2>
+    <div class="career-list">
+      <div class="career-card">
+        <div class="career-accent"></div>
+        <div class="career-header">
+          <div><div class="career-company">바잉스퀘어</div><div class="career-role">Backend Developer · 퇴직 사유: 경영 약화</div></div>
+          <div class="career-period">2023.11 – 2025.06 · 1년 8개월</div>
+        </div>
+        <ul class="career-tasks">
+          <li>Python의 복잡한 상속·리플렉션 구조를 Kotlin 기반 MVC 아키텍처로 전환</li>
+          <li>null-safe 설계, Enum 상태값 적용으로 안정성과 유지보수성 향상</li>
+          <li>DB 정규화 (불명확한 컬럼 명확화, JSON 필드 분리), Soft Delete 구조 도입</li>
+          <li>Kafka 기반 이메일 발송 기능을 별도 서버로 분리, 팩토리 메서드 기반 모듈화 설계</li>
+          <li>Spring Batch · Kafka · SSE를 사용한 대용량 Excel 다운로드 시스템 설계</li>
+          <li>Sentry · Slack 연동 및 jsondiff 라이브러리 활용한 에러 및 로그 추적 개선</li>
+        </ul>
+        <div class="career-stack">
+          <span class="tag highlight">Kotlin</span><span class="tag highlight">Spring Boot</span>
+          <span class="tag highlight">Kafka</span><span class="tag">MySQL</span>
+          <span class="tag">Redis</span><span class="tag">Docker</span><span class="tag">AWS</span>
+        </div>
+      </div>
+      <div class="career-card">
+        <div class="career-accent"></div>
+        <div class="career-header">
+          <div><div class="career-company">더커머스</div><div class="career-role">Backend Developer · 퇴직 사유: 경영 약화</div></div>
+          <div class="career-period">2021.12 – 2023.07 · 1년 8개월</div>
+        </div>
+        <ul class="career-tasks">
+          <li>24개의 커머스 플랫폼에 셀러가 상품을 동시 등록하고 관리할 수 있도록 하는 플랫폼 MSA 개발</li>
+          <li>SKU · 옵션 · 쇼핑몰 상품을 통합한 일괄 등록 시스템 재구축</li>
+          <li>엑셀 업로드 로직 개선 및 AWS Lambda 기반 병렬 처리 구조 설계</li>
+          <li>Zipkin 기반 로그 추적 시스템 구축으로 서비스 호출 흐름 시각화</li>
+        </ul>
+        <div class="career-stack">
+          <span class="tag highlight">Java</span><span class="tag highlight">Python</span>
+          <span class="tag">Spring Boot</span><span class="tag">Flask</span>
+          <span class="tag">MongoDB</span><span class="tag">AWS Lambda</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <span class="section-label">Work</span>
+    <h2 class="section-title">프로젝트</h2>
+    <div class="projects-grid">
+      <div class="project-card" onclick="openModal('modal1')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">01</div>
+        <h3 class="project-title">Python Flask 레거시의 Kotlin 마이그레이션</h3>
+        <div class="project-period">바잉스퀘어 · 2025.03 – 2025.06 · 팀 11명</div>
+        <p class="project-summary">복잡한 상속·리플렉션 구조의 Flask 프로젝트를 Kotlin/Spring Boot MVC 아키텍처로 전환. DB 정규화 및 이메일 서버 분리.</p>
+        <div class="project-tags"><span class="tag highlight">Kotlin</span><span class="tag highlight">Spring Boot</span><span class="tag">Flask</span><span class="tag">Kafka</span></div>
+      </div>
+      <div class="project-card" onclick="openModal('modal2')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">02</div>
+        <h3 class="project-title">셀러 오더 관리 어드민 시스템 구축</h3>
+        <div class="project-period">바잉스퀘어 · 2024.11 – 2025.01 · 팀 8명</div>
+        <p class="project-summary">셀러가 브랜드의 오더 현황을 실시간으로 확인하고, 바이어별 세부 상태를 파악할 수 있는 어드민 시스템.</p>
+        <div class="project-tags"><span class="tag highlight">Kotlin</span><span class="tag highlight">Kafka</span><span class="tag">Redis</span><span class="tag">SSE</span></div>
+      </div>
+      <div class="project-card" onclick="openModal('modal3')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">03</div>
+        <h3 class="project-title">선적 차수 기반 주문 상태 정형화</h3>
+        <div class="project-period">바잉스퀘어 · 2024.08 – 2024.11 · 개발 100% 전담</div>
+        <p class="project-summary">스프레드시트로 관리되던 주문 상태를 시스템화. 선적 차수 단위로 결제/배송 상태를 세분화.</p>
+        <div class="project-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span></div>
+      </div>
+      <div class="project-card" onclick="openModal('modal4')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">04</div>
+        <h3 class="project-title">Catalog-Shop 시스템 구축</h3>
+        <div class="project-period">바잉스퀘어 · 2024.05 – 2024.08 · 팀 11명</div>
+        <p class="project-summary">엑셀 라인시트 기반 오더를 온라인 주문 방식으로 전환. 이미지 리사이징 80% 이상 단축.</p>
+        <div class="project-tags"><span class="tag highlight">Kotlin</span><span class="tag">MapStruct</span><span class="tag">CloudFront</span></div>
+      </div>
+      <div class="project-card" onclick="openModal('modal5')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">05</div>
+        <h3 class="project-title">레거시 코드 리팩토링 및 유지보수성 개선</h3>
+        <div class="project-period">바잉스퀘어 · 2023.12 – 2024.04 · 단독 진행</div>
+        <p class="project-summary">과도한 상속·리플렉션 구조를 점진적으로 개선. 에러 처리·트랜잭션을 데코레이터 패턴으로 분리.</p>
+        <div class="project-tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Sentry</span></div>
+      </div>
+      <div class="project-card" onclick="openModal('modal6')">
+        <div class="project-arrow">→</div>
+        <div class="project-num-dot">06</div>
+        <h3 class="project-title">위탁 상품 구조 통합</h3>
+        <div class="project-period">더커머스 재직 중</div>
+        <p class="project-summary">위탁몰 수집 상품의 구조를 기존 상품과 통합. Java 인터페이스로 재사용성·확장성 향상.</p>
+        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring</span><span class="tag">MongoDB</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <span class="section-label">Certifications</span>
+    <h2 class="section-title">자격증</h2>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-icon">🏆</div><div><div class="cert-name">정보처리기사</div><div class="cert-detail">취득: 2018.08 · 한국산업인력공단<br>등록번호: 18202100635Y</div></div></div>
+      <div class="cert-card"><div class="cert-icon">☁️</div><div><div class="cert-name">AWS Solutions Architect – Professional</div><div class="cert-detail">취득: 2023.06 · AWS Certification<br>등록번호: 447709293</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <span class="section-label">Contact</span>
+    <h2 class="section-title">연락처</h2>
+    <div class="contact-grid">
+      <a href="mailto:ritualforrain@naver.com" class="contact-item"><span class="contact-emoji">📨</span><div><div class="contact-label">Email</div><div class="contact-value">ritualforrain@naver.com</div></div></a>
+      <a href="tel:01021123266" class="contact-item"><span class="contact-emoji">📞</span><div><div class="contact-label">Phone</div><div class="contact-value">010-2112-3266</div></div></a>
+      <a href="https://github.com/chanwoo-lee-cw" target="_blank" class="contact-item"><span class="contact-emoji">🗨️</span><div><div class="contact-label">GitHub</div><div class="contact-value">chanwoo-lee-cw</div></div></a>
+      <a href="https://velog.io/@alphanewbie/posts" target="_blank" class="contact-item"><span class="contact-emoji">🗒️</span><div><div class="contact-label">기술 블로그</div><div class="contact-value">velog.io/@alphanewbie</div></div></a>
+    </div>
+  </div>
+</section>
+
+<footer>Copyright. ChanWoo Lee all rights reserved.</footer>
+
+<!-- MODALS -->
+<div id="modal1" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal1')"><div class="modal"><div class="modal-header"><div class="modal-badge">01 · 바잉스퀘어 · 2025.03 – 2025.06</div><h2 class="modal-title">Python Flask 레거시 프로젝트의 Kotlin 마이그레이션</h2><div class="modal-meta"><span>👥 총 11명</span></div><button class="modal-close" onclick="closeModal('modal1')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">기존 레거시 프로젝트는 상속·팩토리 메서드·메서드 리플렉션이 지나치게 많이 사용된 구조였습니다. 이를 개선하기 위해 Kotlin/Java 전환을 제안했고, Layered 아키텍처 구조와 null-safe한 설계로 Spring Boot 기반 시스템으로 마이그레이션을 진행했습니다.</p></div><div class="modal-section"><div class="modal-section-title">목표</div><ul class="modal-list"><li>Python Flask 기반 레거시를 Kotlin Spring Boot 구조로 재설계</li><li>사이드 이펙트 파악이 어려운 복잡한 구조를 명시적인 호출 구조로 변경</li><li>불명확한 필드명을 명확하게 정비하는 방향으로 마이그레이션</li><li>이메일 기능을 별개의 서버로 분리</li></ul></div><div class="modal-section"><div class="modal-section-title">전체 아키텍처</div><img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-10-10_%EC%98%A4%EC%A0%84_2.09.58.png" alt="아키텍처"></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>명시적인 호출과 명확한 흐름 구조로 사이드 이펙트 추적 및 유지보수성 개선</li><li>DB의 JSON 필드 및 모호한 필드명을 명확하게 마이그레이션하여 데이터 관리 효율화</li><li>이메일 발송 기능을 별도 서버로 분리하여 서비스 간 결합도를 낮추고 재사용성 향상</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Kotlin · Java · Spring Boot · JPA · MySQL · Python · Flask · Redis · Kafka · Docker · GitHub Actions · AWS SES · Sentry</div></div></div></div></div>
+<div id="modal2" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal2')"><div class="modal"><div class="modal-header"><div class="modal-badge">02 · 바잉스퀘어 · 2024.11 – 2025.01</div><h2 class="modal-title">셀러 오더 관리를 위한 셀러 어드민 시스템 구축</h2><div class="modal-meta"><span>👥 총 8명</span></div><button class="modal-close" onclick="closeModal('modal2')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">셀러들이 자사 브랜드의 오더 현황을 실시간으로 확인하거나 바이어별로 세부적인 상태를 파악하기 어려운 문제를 해결하기 위한 어드민 시스템 구축 프로젝트입니다.</p></div><div class="modal-section"><div class="modal-section-title">주요 작업</div><ul class="modal-list"><li>View 테이블을 활용하여 다수의 테이블에 분산된 오더 정보를 통합 집계</li><li>Kafka · Avro를 이용해 주문 상태 처리와 분산락을 이용한 재고 관리 시스템 설계</li><li>AWS Secrets Manager를 이용한 X-API-KEY 기반 인증 방식으로 서비스 간 API 연동 간소화</li></ul></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>다운로드 처리를 실시간 알림 방식으로 전환해 엑셀 다운로드 요청 처리 속도 개선</li><li>Kafka · AOP와 분산락을 이용한 상품별 재고 관리 효율성 상승</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Kotlin · Spring Boot · Spring Batch · MySQL · Apache Kafka · Apache Avro · SSE · Redis · AWS Secrets Manager · AOP</div></div></div></div></div>
+<div id="modal3" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal3')"><div class="modal"><div class="modal-header"><div class="modal-badge">03 · 바잉스퀘어 · 2024.08 – 2024.11</div><h2 class="modal-title">선적 차수 기반 주문 상태 정형화 프로젝트</h2><div class="modal-meta"><span>👤 총 3명 · 개발 100% 전담</span></div><button class="modal-close" onclick="closeModal('modal3')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">스프레드시트로 관리되던 주문 상태를 시스템화. 오더 컨펌 이후 결제/배송 단계를 선적 차수 단위로 세분화하여 주문 상태 체계를 재설계했습니다.</p></div><div class="modal-section"><div class="modal-section-title">주문 상태 AS-IS / TO-BE</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"><div><p class="diagram-label">AS-IS</p><img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EB%AC%B4%EC%A0%9C.svg" alt="AS-IS"></div><div><p class="diagram-label">TO-BE</p><img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EB%AC%B4%EC%A0%9C%201.svg" alt="TO-BE"></div></div></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>주문 상태 데이터를 시스템화하여 데이터 정합성 확보 및 오류율 감소</li><li>선적 단계 진행률·선적 합계·잔액 등 오더 관련 중요 정보를 명시화</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Python · Flask · SQLAlchemy · MySQL · JavaScript · Ajax · Kubernetes · Sentry</div></div></div></div></div>
+<div id="modal4" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal4')"><div class="modal"><div class="modal-header"><div class="modal-badge">04 · 바잉스퀘어 · 2024.05 – 2024.08</div><h2 class="modal-title">Catalog-Shop 시스템 구축 프로젝트</h2><div class="modal-meta"><span>👥 총 11명</span></div><button class="modal-close" onclick="closeModal('modal4')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">기존의 엑셀 라인 시트 기반 오더 프로세스를 Spring 기반 카탈로그를 활용한 온라인 주문 방식으로 전환하기 위한 프로젝트입니다.</p></div><div class="modal-section"><div class="modal-section-title">목표 아키텍처</div><img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-10-08_%EC%98%A4%ED%9B%84_1.52.26.png" alt="목표 아키텍처"></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>AWS Lambda · CloudFront 캐시를 적용해 이미지 리사이징 및 삽입 시간을 80% 이상 단축</li><li>해시 기반 변경 감지 기능으로 상품 업데이트 시 효율성 향상</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Java · Kotlin · Spring Boot · JPA · QueryDSL · MapStruct · AWS Lambda · CloudFront · Redis · JWT · Flask · S3</div></div></div></div></div>
+<div id="modal5" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal5')"><div class="modal"><div class="modal-header"><div class="modal-badge">05 · 바잉스퀘어 · 2023.12 – 2024.04</div><h2 class="modal-title">레거시 코드 리팩토링 및 유지보수성 개선</h2><div class="modal-meta"><span>👤 단독 진행</span></div><button class="modal-close" onclick="closeModal('modal5')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">기존 레거시 프로젝트는 상속·메서드 리플렉션·팩토리 메서드가 과도하게 사용된 구조로 인해 전체 프로세스의 흐름을 파악하기 어렵고, 사이드 이펙트 발생 여부를 예측하기 힘든 문제가 있었습니다. 1~2주 단위 소규모 기능 개발 프로젝트를 수행할 때마다 해당 영역의 코드를 함께 리팩토링하여 점진적으로 구조를 개선해 나갔습니다.</p></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>메서드 리플렉션과 상속을 남용한 코드 구조를 점진적으로 단순화하여 유지보수성 향상</li><li>에러 처리와 트랜잭션을 데코레이터 패턴으로 분리하여 구조 단순화</li><li>실제 운영 중 데이터 누락/오류 발생 시 Sentry와 Slack 알람으로 에러 처리 속도 개선</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Python · Flask · JavaScript · Redis · MySQL · SQLAlchemy · Slack API · jsondiff · Sentry</div></div></div></div></div>
+<div id="modal6" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal6')"><div class="modal"><div class="modal-header"><div class="modal-badge">06 · 더커머스</div><h2 class="modal-title">위탁 상품의 상품 구조 통합</h2><button class="modal-close" onclick="closeModal('modal6')">✕</button></div><div class="modal-body"><div class="modal-section"><div class="modal-section-title">개요</div><p class="modal-desc">위탁몰에서 수집된 상품의 구조와 등록 방식이 기존 상품과 다르게 판매자들이 사용하기 어려워하는 문제를 해결하기 위해 프로젝트를 진행했습니다.</p></div><div class="modal-section"><div class="modal-section-title">위탁 동기화 처리 프로세스</div><img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EA%B7%B8%EB%A6%BC1.png" alt="위탁 동기화"></div><div class="modal-section"><div class="modal-section-title">주요 성과</div><ul class="modal-list modal-achievement"><li>원셀 상품과 위탁 상품의 구조를 통합하여 판매자들이 더욱 쉽게 사용할 수 있게 개선</li><li>인터페이스를 사용하여 추후 다른 위탁 쇼핑몰이 연동되더라도 쉽게 확장할 수 있도록 설계</li></ul></div><div class="modal-section"><div class="modal-section-title">사용 기술</div><div class="modal-stack">Java · Spring · Python · Flask · AWS Lambda · MongoDB</div></div></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: false, theme: 'default' });
+  function openModal(id) {
+    const el = document.getElementById(id);
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const nodes = el.querySelectorAll('.mermaid:not([data-processed])');
+    if (nodes.length) mermaid.run({ nodes });
+  }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+  function closeModalOnOverlay(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.open').forEach(el => el.classList.remove('open')); document.body.style.overflow = ''; } });
+</script>
+</body>
+</html>
