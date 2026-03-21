@@ -138,37 +138,44 @@
     .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.35rem; }
     /* Hero right panel */
     .hero-right { display: flex; flex-direction: column; gap: 1rem; }
-    .hero-code-card {
-      background: #1e1e2e;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(255,255,255,0.06);
+    .hero-stack-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow: var(--shadow-md);
     }
-    .hero-code-bar {
+    .hero-stack-card-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem;
       display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      background: #2a2a3e;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .hero-code-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .hero-code-dot.red { background: #ff5f57; }
-    .hero-code-dot.yellow { background: #febc2e; }
-    .hero-code-dot.green { background: #28c840; }
-    .hero-code-filename {
-      margin-left: 0.5rem; font-size: 0.72rem; color: rgba(255,255,255,0.35);
-      font-family: var(--mono);
+    .hero-stack-row {
+      display: flex; flex-direction: column; gap: 0.9rem;
     }
-    .hero-code-body {
-      padding: 1.4rem 1.6rem; font-family: var(--mono); font-size: 0.78rem;
-      line-height: 2; color: #cdd6f4;
+    .hero-stack-group {
+      display: flex; align-items: flex-start; gap: 0.75rem;
     }
-    .hc-comment { color: #6c7086; }
-    .hc-keyword { color: #cba6f7; }
-    .hc-type { color: #89dceb; }
-    .hc-string { color: #a6e3a1; }
-    .hc-prop { color: #89b4fa; }
-    .hc-val { color: #fab387; }
+    .hero-stack-group-label {
+      font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+      min-width: 64px; padding-top: 0.2rem; flex-shrink: 0;
+    }
+    .hero-stack-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+    .hero-stack-tag {
+      font-size: 0.75rem; font-weight: 500;
+      padding: 0.2rem 0.65rem; border-radius: 6px;
+      background: var(--tag-bg); color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .hero-stack-tag.primary {
+      background: var(--accent-dim); color: var(--accent);
+      border-color: var(--border-accent); font-weight: 700;
+    }
+    .hero-stack-divider {
+      height: 1px; background: var(--border); margin: 0.25rem 0;
+    }
     .hero-links {
       display: flex; gap: 0.75rem; flex-wrap: wrap;
     }
@@ -431,35 +438,64 @@
       <div class="hero-stats">
         <div><div class="stat-num">3<span class="stat-unit">년</span></div><div class="stat-label">총 경력</div></div>
         <div><div class="stat-num">6<span class="stat-unit">개</span></div><div class="stat-label">주요 프로젝트</div></div>
-        <div><div class="stat-num">2<span class="stat-unit">개</span></div><div class="stat-label">자격증</div></div>
+        <!-- <div><div class="stat-num">2<span class="stat-unit">개</span></div><div class="stat-label">자격증</div></div> -->
       </div>
     </div>
     <!-- Right -->
     <div class="hero-right">
-      <div class="hero-code-card">
-        <div class="hero-code-bar">
-          <span class="hero-code-dot red"></span>
-          <span class="hero-code-dot yellow"></span>
-          <span class="hero-code-dot green"></span>
-          <span class="hero-code-filename">LeeChWoo.kt</span>
+      <div class="hero-stack-card">
+        <div class="hero-stack-card-title">
+          <i class="fas fa-layer-group"></i> 주요 기술 스택
         </div>
-        <div class="hero-code-body">
-          <span class="hc-comment">// 이찬우 · Backend Developer</span><br>
-          <span class="hc-keyword">class </span><span class="hc-type">LeeChWoo</span>() {<br>
-          &nbsp;&nbsp;<span class="hc-prop">val</span> <span class="hc-val">mainStack</span> = <span class="hc-string">"Kotlin / Spring"</span><br>
-          &nbsp;&nbsp;<span class="hc-prop">val</span> <span class="hc-val">experience</span> = <span class="hc-string">"3년 4개월"</span><br>
-          &nbsp;&nbsp;<span class="hc-prop">val</span> <span class="hc-val">database</span> = <span class="hc-string">"MySQL · Redis · MongoDB"</span><br>
-          &nbsp;&nbsp;<span class="hc-prop">val</span> <span class="hc-val">messaging</span> = <span class="hc-string">"Apache Kafka"</span><br>
-          &nbsp;&nbsp;<span class="hc-prop">val</span> <span class="hc-val">focus</span> = <span class="hc-string">"성능 · 안정성 · 가독성"</span><br>
-          }
+        <div class="hero-stack-row">
+          <div class="hero-stack-group">
+            <span class="hero-stack-group-label">언어</span>
+            <div class="hero-stack-tags">
+              <span class="hero-stack-tag primary">Kotlin</span>
+              <span class="hero-stack-tag primary">Java</span>
+              <span class="hero-stack-tag">Python</span>
+              <span class="hero-stack-tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="hero-stack-divider"></div>
+          <div class="hero-stack-group">
+            <span class="hero-stack-group-label">Framework</span>
+            <div class="hero-stack-tags">
+              <span class="hero-stack-tag primary">Spring</span>
+              <span class="hero-stack-tag primary">Flask</span>
+              <span class="hero-stack-tag">JPA</span>
+              <span class="hero-stack-tag">QueryDSL</span>
+            </div>
+          </div>
+          <div class="hero-stack-divider"></div>
+          <div class="hero-stack-group">
+            <span class="hero-stack-group-label">DB / Infra</span>
+            <div class="hero-stack-tags">
+              <span class="hero-stack-tag primary">MySQL</span>
+              <span class="hero-stack-tag primary">Redis</span>
+              <span class="hero-stack-tag primary">Kafka</span>
+              <span class="hero-stack-tag">MongoDB</span>
+              <span class="hero-stack-tag">Docker</span>
+            </div>
+          </div>
+          <div class="hero-stack-divider"></div>
+          <div class="hero-stack-group">
+            <span class="hero-stack-group-label">Cloud</span>
+            <div class="hero-stack-tags">
+              <span class="hero-stack-tag">AWS EC2</span>
+              <span class="hero-stack-tag">Lambda</span>
+              <span class="hero-stack-tag">S3</span>
+              <span class="hero-stack-tag">ECS</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="hero-links">
         <a href="https://github.com/chanwoo-lee-cw" target="_blank" class="hero-link-btn">
           <i class="fab fa-github"></i> GitHub
         </a>
-        <a href="#skills" class="hero-link-btn">
-          <i class="fas fa-layer-group"></i> 기술 스택
+        <a href="mailto:dlccksdn@naver.com" class="hero-link-btn">
+          <i class="fas fa-envelope"></i> 이메일
         </a>
       </div>
     </div>
