@@ -373,13 +373,13 @@
     </p>
     <div class="hero-actions">
       <a href="#projects" class="btn btn-primary">프로젝트 보기 →</a>
-      <a href="#contact" class="btn btn-outline">연락하기</a>
+      <!-- <a href="#contact" class="btn btn-outline">연락하기</a> -->
     </div>
-    <div class="hero-stats">
+    <!-- <div class="hero-stats">
       <div><div class="stat-num">3년 4개월</div><div class="stat-label">총 경력</div></div>
       <div><div class="stat-num">6</div><div class="stat-label">주요 프로젝트</div></div>
       <div><div class="stat-num">2</div><div class="stat-label">자격증</div></div>
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -503,7 +503,6 @@
           <li>엑셀 업로드 로직 개선 및 AWS Lambda 기반 병렬 처리 구조 설계</li>
           <li>위탁 상품 구조와 원셀 상품 구조 통합, 인터페이스 일관화</li>
           <li>상품 전환 API 구현으로 판매 유연성 확보</li>
-          <li>Zipkin 기반 로그 추적 시스템 구축으로 서비스 호출 흐름 시각화</li>
           <li>Flask에 Trace ID 연동 로직 직접 구현, Elasticsearch로 로그 분석</li>
         </ul>
         <div class="career-stack">
@@ -545,8 +544,11 @@
         <div class="project-period">2024.11 – 2025.01 · 팀 8명</div>
         <p class="project-summary">셀러가 브랜드의 오더 현황을 확인하고, 바이어별 세부 상태를 파악할 수 있는 어드민 시스템.</p>
         <div class="project-tags">
-          <span class="tag highlight">Kotlin</span><span class="tag highlight">Spring</span>
-          <span class="tag">Kafka</span><span class="tag">SSE</span><span class="tag">MariaDB</span>
+          <span class="tag highlight">Kotlin</span>
+          <span class="tag highlight">Spring</span>
+          <span class="tag highlight">Kafka</span>
+          <span class="tag">SSE</span>
+          <span class="tag">MariaDB</span>
         </div>
       </div>
 
@@ -557,8 +559,10 @@
         <div class="project-period">2024.08 – 2024.11 · 개발 100% 전담</div>
         <p class="project-summary">수기 스프레드시트로 관리되던 다단계 주문 흐름을 선적 차수 단위로 시스템화하여, 데이터 오류를 줄이고 세일즈팀이 실시간으로 주문 상태를 추적할 수 있도록 개선</p>
         <div class="project-tags">
-          <span class="tag">Python</span><span class="tag">Flask</span>
-          <span class="tag">MySQL</span><span class="tag">SQLAlchemy</span>
+          <span class="tag highlight">Python</span>
+          <span class="tag highlight">Flask</span>
+          <span class="tag highlight">SQLAlchemy</span>
+          <span class="tag">MySQL</span>
         </div>
       </div>
 
@@ -569,8 +573,12 @@
         <div class="project-period">2024.05 – 2024.08 · 팀 11명</div>
         <p class="project-summary">엑셀 라인시트 기반의 수동 주문 프로세스를 카탈로그 + 장바구니 방식으로 전환. Kafka·Redis기반 분산락 기반 재고 관리.</p>
         <div class="project-tags">
-          <span class="tag highlight">Kotlin</span><span class="tag highlight">Java</span><span class="tag highlight">Spring</span> 
-          <span class="tag">Spring AOP</span><span class="tag">Kafka</span><span class="tag">Redis</span>
+          <span class="tag highlight">Kotlin</span>
+          <span class="tag highlight">Java</span>
+          <span class="tag highlight">Spring</span> 
+          <span class="tag highlight">Kafka</span>
+          <span class="tag">Spring AOP</span>
+          <span class="tag">Redis</span>
         </div>
       </div>
 
@@ -581,8 +589,10 @@
         <div class="project-period">2023.12 – 2024.04 · 단독 진행</div>
         <p class="project-summary">과도한 상속·리플렉션 구조를 점진적으로 개선. 에러 처리·트랜잭션을 데코레이터 패턴으로 분리, Sentry·Slack 연동.</p>
         <div class="project-tags">
-          <span class="tag">Python</span><span class="tag">Flask</span>
-          <span class="tag">Redis</span><span class="tag">Sentry</span><span class="tag">Slack API</span>
+          <span class="tag highlight">Python</span>
+          <span class="tag highlight">Flask</span>
+          <span class="tag highlight">Sentry</span>
+          <span class="tag">Slack API</span>
         </div>
       </div>
 
@@ -593,8 +603,12 @@
         <div class="project-period">더커머스 재직 중</div>
         <p class="project-summary">위탁몰 수집 상품의 구조를 기존 상품과 통합. Java 인터페이스로 재사용성·확장성 향상, 위탁↔원셀 전환 기능 추가.</p>
         <div class="project-tags">
-          <span class="tag">Java</span><span class="tag">Spring</span>
-          <span class="tag">Python</span><span class="tag">MongoDB</span><span class="tag">AWS Lambda</span>
+          <span class="tag highlight">Java</span>
+          <span class="tag highlight">Spring</span>
+          <span class="tag highlight">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">AWS Lambda</span>
         </div>
       </div>
 
@@ -652,7 +666,7 @@
         <span class="contact-emoji">🗨️</span>
         <div><div class="contact-label">GitHub</div><div class="contact-value">chanwoo-lee-cw</div></div>
       </a>
-      <a href="https://velog.io/@alphanewbie/posts" target="_blank" class="contact-item">
+      <a href="https://velog.io/@alphanewbie" target="_blank" class="contact-item">
         <span class="contact-emoji">🗒️</span>
         <div><div class="contact-label">기술 블로그</div><div class="contact-value">velog.io/@alphanewbie</div></div>
       </a>
@@ -1061,16 +1075,18 @@ sequenceDiagram
         <ul class="modal-list">
           <li>View 테이블을 활용하여 다수의 테이블에 분산된 오더 정보를 통합 집계</li>
           <li>AWS Secrets Manager를 이용한 X-API-KEY 기반 인증 방식으로 서비스 간 API 연동 간소화</li>
-          <li>Kafka · Avro를 이용해 주문 상태 처리와 분산락을 이용한 재고 관리 시스템 설계</li>
+          <li>Kafka, Avro, SSE를 이용한 엑셀 다운로드 알림 기능 추가</li>
+          <li>Kafka를 이용한 오더 상태 변경시 레거시 Python 서비스와의 상태 연동</li>
         </ul>
       </div>
 
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
+          <li>View 테이블 기반 통합 집계로 복잡한 조인 쿼리를 단순화하고 오더 현황 조회 성능 향상</li>
           <li>기존 시스템과의 API 연동을 효율화하여 보안성과 개발 편의성을 동시에 확보</li>
           <li>다운로드 처리를 실시간 알림 방식으로 전환해 엑셀 다운로드 요청 처리 속도 개선</li>
-          <li>Kafka · AOP와 분산락을 이용한 상품별 재고 관리 효율성 상승</li>
+          <li>Kafka 기반 이벤트 연동으로 레거시 서비스와의 상태 정합성 확보 및 직접 의존성 제거</li>
         </ul>
       </div>
 
@@ -1199,14 +1215,16 @@ sequenceDiagram
           <li>Kotlin Spring 기반 카탈로그 시스템 개발 및 Python Flask에 REST API를 통한 상품 및 오더 동기화 처리</li>
           <li>대용량 이미지 처리 성능 향상을 위해 AWS Lambda를 통한 비동기 리사이징 처리 및 CloudFront 캐싱 적용</li>
           <li>라인시트 내 상품 변경 여부를 효율적으로 감지하기 위해 해시 기반 변경 감지 구현</li>
+          <li>Kafka, Avro, Spring AOP, Redis 를 이용해 주문 상태 처리와 분산락을 이용한 재고 관리 시스템 설계</li>
         </ul>
       </div>
 
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>Spring AOP, Kafka, Redis, 분산락을 기반으로 하는 재고 처리 시스템 설계</li>
+          <li>이미지 리사이징 처리 시간을 AWS Lambda + CloudFront 캐시 적용으로 80% 이상 단축</li>
           <li>해시 기반 변경 감지 기능으로 상품 업데이트 시 효율성 향상 및 오류 감소</li>
+          <li>분산 환경의 동시성 문제 해소로 재고 중복 차감 이슈 제거</li>
         </ul>
       </div>
 
