@@ -382,8 +382,38 @@
     .mermaid-wrap {
       background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
       padding: 1.25rem; overflow-x: auto; margin: 0.5rem 0;
+      cursor: zoom-in; position: relative;
+    }
+    .mermaid-wrap::after {
+      content: '🔍 클릭하여 확대';
+      position: absolute; bottom: 6px; right: 10px;
+      font-size: 0.68rem; color: var(--text-muted); opacity: 0.6;
+      pointer-events: none;
     }
     .mermaid { font-size: 13px; }
+
+    /* Mermaid lightbox */
+    #mermaid-lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.75); align-items: center; justify-content: center;
+    }
+    #mermaid-lightbox.open { display: flex; }
+    #mermaid-lightbox-inner {
+      background: #fff; border-radius: 12px; padding: 2rem;
+      width: 90vw; max-height: 90vh; overflow: auto;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    }
+    #mermaid-lightbox-inner svg {
+      width: 100% !important; height: auto !important;
+      max-width: none !important; min-width: 600px;
+    }
+    #mermaid-lightbox-close {
+      position: fixed; top: 1.2rem; right: 1.4rem;
+      background: rgba(255,255,255,0.9); border: none; border-radius: 50%;
+      width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
@@ -698,6 +728,8 @@
           <span class="tag highlight">Kafka</span>
           <span class="tag">Spring AOP</span>
           <span class="tag">Redis</span>
+          <span class="tag">AWS Lambda@Edge</span>
+          <span class="tag">CloudFront</span>
         </div>
       </div>
 
@@ -936,52 +968,6 @@ sequenceDiagram
         <p class="diagram-label">구상한 전체 아키텍처</p>
         <img class="modal-img" src="%EC%9D%B4%EC%B0%AC%EC%9A%B0%20%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_2025-10-10_%EC%98%A4%EC%A0%84_2.09.58.png" alt="전체 아키텍처">
 
-        <p class="diagram-label">DB Migration 배포 플로우</p>
-        <div class="mermaid-wrap">
-          <div class="mermaid">
-flowchart TD
-    A((Start))
-    B[Table 필드 확인]
-    C{마이그레이션이 필요한가?}
-    JsonA{data가 JSON인지? 불분명한 이름의 필드인가?}
-    JsonB[새로운 테이블 생성]
-    JsonC[Flask에 setter를 이용한 마이그레이션 코드 작성]
-    JsonD[Spring에 DTO to Entity 전환 전 마이그레이션 코드 작성]
-    understandB[해당 테이블에 동일한 데이터를 명확히 저장할 필드 생성]
-    understandC[Flask 동일한 데이터 저장하도록 설정]
-    understandD[Spring 동일한 데이터 저장하도록 설정]
-    migrationA[기존 데이터 마이그레이션]
-    migrationB{데이터가 너무 많거나 복잡한가?}
-    migrationC[Flask cron job으로 마이그레이션 코드 작성]
-    migrationD[SQL 쿼리문으로 마이그레이션 코드 작성]
-    deployA[운영에 코드 배포]
-    deployB[Job이나 SQL 쿼리문으로 마이그레이션]
-    deployC[데이터 동기화가 제대로 되는지 확인]
-    deployD[Spring Column 참조 필드 변경]
-    E((end))
-    A --> B
-    B --> C
-    C -->|NO| B
-    C -->|YES| JsonA
-    JsonA-->|JSON 필드|JsonB
-    JsonB-->JsonC
-    JsonC-->JsonD
-    JsonA -->|불분명한 이름의 필드| understandB
-    understandB-->understandC
-    understandC-->understandD
-    JsonD-->migrationA
-    understandD-->migrationA
-    migrationA-->migrationB
-    migrationB-->|YES|migrationC
-    migrationB-->|NO|migrationD
-    migrationC-->deployA
-    migrationD-->deployA
-    deployA-->deployB
-    deployB-->|모니터링|deployC
-    deployC-->deployD
-    deployD-->E
-          </div>
-        </div>
       </div>
 
       <div class="modal-section">
@@ -1300,7 +1286,7 @@ sequenceDiagram
       <h2 class="modal-title">Catalog-Shop 시스템 구축 프로젝트</h2>
       <div class="modal-meta">
         <span>👥 총 11명 (기획 3, 백엔드 5, 프론트 3)</span>
-        <span>🔧 Kotlin · Java · Spring Boot · AWS Lambda · CloudFront</span>
+        <span>🔧 Kotlin · Java · Spring Boot · Kafka · Redis  · AWS Lambda@Edge · CloudFront</span>
       </div>
       <button class="modal-close" onclick="closeModal('modal4')">✕</button>
     </div>
@@ -1349,7 +1335,7 @@ sequenceDiagram
 
       <div class="modal-section">
         <div class="modal-section-title">사용 기술</div>
-        <div class="modal-stack">Java · Kotlin · Spring Boot · Spring Security · Spring AOP · JPA · Gradle · QueryDSL · AWS Lambda · AWS CloudFront · Redis · JWT · Python Flask · AWS S3</div>
+        <div class="modal-stack">Java · Kotlin · Spring Boot · Spring Security · Spring AOP · JPA · Gradle · QueryDSL · AWS Lambda@Edge · CloudFront · Redis · JWT · Python Flask · AWS S3</div>
       </div>
 
     </div>
@@ -1590,6 +1576,11 @@ sequenceDiagram
 </div>
 
 <!-- Mermaid.js -->
+<div id="mermaid-lightbox">
+  <button id="mermaid-lightbox-close" onclick="document.getElementById('mermaid-lightbox').classList.remove('open');document.body.style.overflow=''">✕</button>
+  <div id="mermaid-lightbox-inner"></div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   mermaid.initialize({
@@ -1627,6 +1618,38 @@ sequenceDiagram
       document.body.style.overflow = '';
     }
   });
+
+  // Mermaid lightbox
+  document.addEventListener('click', function(e) {
+    const wrap = e.target.closest('.mermaid-wrap');
+    if (!wrap) return;
+    const svg = wrap.querySelector('svg');
+    if (!svg) return;
+    const lb = document.getElementById('mermaid-lightbox');
+    const inner = document.getElementById('mermaid-lightbox-inner');
+    inner.innerHTML = '';
+    const cloned = svg.cloneNode(true);
+    cloned.removeAttribute('width');
+    cloned.removeAttribute('height');
+    cloned.style.width = '100%';
+    cloned.style.height = 'auto';
+    inner.appendChild(cloned);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  document.getElementById('mermaid-lightbox').addEventListener('click', function(e) {
+    if (e.target === this || e.target.id === 'mermaid-lightbox-close') {
+      this.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('mermaid-lightbox').classList.remove('open');
+    }
+  }, true);
 
   // Nav scroll effect
   const nav = document.getElementById('nav');
