@@ -466,8 +466,8 @@
         <a href="#career" class="btn btn-outline">경력 보기</a>
       </div>
       <div class="hero-stats">
-        <div><div class="stat-num">3<span class="stat-unit">년</span></div><div class="stat-label">총 경력</div></div>
-        <div><div class="stat-num">6<span class="stat-unit">개</span></div><div class="stat-label">주요 프로젝트</div></div>
+        <div><div class="stat-num">4<span class="stat-unit">년</span></div><div class="stat-label">총 경력</div></div>
+        <div><div class="stat-num">10<span class="stat-unit">개</span></div><div class="stat-label">주요 프로젝트</div></div>
         <!-- <div><div class="stat-num">2<span class="stat-unit">개</span></div><div class="stat-label">자격증</div></div> -->
       </div>
     </div>
@@ -535,7 +535,7 @@
         <div class="tag-list">
           <span class="tag highlight">Kotlin</span>
           <span class="tag highlight">Java</span>
-          <span class="tag">Python</span>
+          <span class="tag highlight">Python</span>
           <span class="tag">JavaScript</span>
         </div>
       </div>
@@ -564,13 +564,13 @@
       <div class="skill-card">
         <div class="skill-card-title"><span class="skill-icon">☁️</span> AWS</div>
         <div class="tag-list">
-          <span class="tag">EC2</span>
           <span class="tag">Lambda</span>
           <span class="tag">S3</span>
           <span class="tag">SQS</span>
+          <span class="tag">Secrets Manager</span>
+          <span class="tag">EC2</span>
           <span class="tag">ECS</span>
           <span class="tag">CloudFront</span>
-          <span class="tag">Secrets Manager</span>
           <span class="tag">SES</span>
         </div>
       </div>
@@ -583,8 +583,8 @@
           <span class="tag">Sentry</span>
           <span class="tag">Swagger</span>
           <span class="tag">CloudWatch</span>
-          <span class="tag">Zipkin</span>
-          <span class="tag">Elasticsearch</span>
+          <span class="tag">Argo CD</span>
+          <span class="tag">Jenkins</span>
         </div>
       </div>
     </div>
@@ -647,11 +647,13 @@
           <li>Flask에 Trace ID 연동 로직 직접 구현, Elasticsearch로 로그 분석</li>
         </ul>
         <div class="career-stack">
-          <span class="tag highlight">Java</span><span class="tag highlight">Python</span>
-          <span class="tag">Spring Boot</span><span class="tag">Flask</span>
-          <span class="tag">FastAPI</span><span class="tag">MongoDB</span>
-          <span class="tag">Docker</span><span class="tag">AWS Lambda</span>
-          <span class="tag">AWS ECS</span>
+          <span class="tag highlight">Java</span>
+          <span class="tag highlight">Python</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Flask</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">AWS Lambda</span>
+          <span class="tag">Git Submodule</span>
         </div>
       </div>
 
@@ -742,15 +744,44 @@
       <div class="project-card" onclick="openModal('modal6')">
         <div class="project-arrow">→</div>
         <div class="project-num">Project 06 · 더커머스</div>
+        <h3 class="project-title">상품 일괄 등록/수정 업로드 기능 추가</h3>
+        <div class="project-period">더커머스 재직 중</div>
+        <p class="project-summary">SKU·옵션·쇼핑몰 상품을 단일 엑셀로 일괄 등록 가능하도록 구조 재설계. AWS Lambda 병렬 처리 도입.</p>
+        <div class="project-tags">
+          <span class="tag highlight">Go</span>
+          <span class="tag highlight">Java</span>
+          <span class="tag highlight">Spring</span>
+          <span class="tag">AWS Lambda</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">AWS ECS</span>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="openModal('modal7')">
+        <div class="project-arrow">→</div>
+        <div class="project-num">Project 07 · 더커머스</div>
         <h3 class="project-title">위탁 상품 구조 통합</h3>
         <div class="project-period">더커머스 재직 중</div>
         <p class="project-summary">위탁몰 수집 상품의 구조를 기존 상품과 통합. Java 인터페이스로 재사용성·확장성 향상, 위탁↔원셀 전환 기능 추가.</p>
         <div class="project-tags">
           <span class="tag highlight">Java</span>
           <span class="tag highlight">Spring</span>
-          <span class="tag highlight">Python</span>
-          <span class="tag">Flask</span>
           <span class="tag">MongoDB</span>
+          <span class="tag">AWS Lambda</span>
+        </div>
+      </div>
+
+      <div class="project-card" onclick="openModal('modal8')">
+        <div class="project-arrow">→</div>
+        <div class="project-num">Project 08 · 더커머스</div>
+        <h3 class="project-title">Zipkin 기반 MSA 로그 트레이싱 시스템 구축</h3>
+        <div class="project-period">더커머스 재직 중</div>
+        <p class="project-summary">Java/Python/Lambda 간 Trace ID를 공유하는 통합 로그 추적 시스템 구축. Elasticsearch 기반 검색 환경 구성.</p>
+        <div class="project-tags">
+          <span class="tag highlight">Git Submodule</span>
+          <span class="tag highlight">Elasticsearch</span>
+          <span class="tag">Zipkin</span>
+          <span class="tag">Python</span>
           <span class="tag">AWS Lambda</span>
         </div>
       </div>
@@ -1520,9 +1551,9 @@ sequenceDiagram
   <div class="modal">
     <div class="modal-header">
       <div class="modal-badge">Project 06 · 더커머스</div>
-      <h2 class="modal-title">위탁 상품의 상품 구조 통합</h2>
+      <h2 class="modal-title">상품 일괄 등록/수정 업로드 기능 추가</h2>
       <div class="modal-meta">
-        <span>🔧 Java · Spring · Python · Flask · AWS Lambda · MongoDB</span>
+        <span>🔧 Go · Java · Spring · MongoDB · AWS ECS · AWS Lambda</span>
       </div>
       <button class="modal-close" onclick="closeModal('modal6')">✕</button>
     </div>
@@ -1531,7 +1562,57 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">개요</div>
         <p class="modal-desc">
-          위탁몰에서 수집된 상품의 구조와 등록 방식이 기존 상품과 다르게 판매자들이 사용하기 어려워하는 문제를 해결하기 위해 프로젝트를 진행했습니다.
+          기존 플랫폼에서는 상품을 SKU, 옵션, 쇼핑몰 상품 단위로 개별 등록해야 했으며, 대량 등록 시에도 구조가 복잡하여 사용성이 떨어졌습니다.
+          플랫폼 상품 구조에 맞춘 통합 엑셀 등록 기능을 추가하여, 사용자가 더 효율적으로 대량 상품을 일괄 등록할 수 있도록 시스템을 개선한 프로젝트입니다.
+        </p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">주요 작업</div>
+        <ul class="modal-list">
+          <li>SKU, 옵션, 쇼핑몰 상품 정보를 단일 상품 단위로 통합 등록 가능하도록 구조 설계</li>
+          <li>엑셀 기반의 대량 등록 로직 리팩토링 및 검증/업로드를 하나의 프로세스로 통합</li>
+          <li>Go 및 Java Spring을 활용하여 백엔드 구조 개선 및 MSA 기반 API 구성</li>
+          <li>AWS Lambda를 활용해 상품 등록 병렬 처리 로직 구현, ECS 기반의 배포 환경 구성</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">주요 성과</div>
+        <ul class="modal-list modal-achievement">
+          <li>상품 등록 구조를 원셀 표준에 맞게 단일화하여 사용자 혼란 해소 및 운영 효율성 개선</li>
+          <li>AWS Lambda 도입을 통한 대량 상품 등록 시 처리 속도 개선</li>
+          <li>Spring 기반 구조로 안정성 및 확장성 확보, ECS 환경에서 무중단 배포 체계 구축</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">사용 기술</div>
+        <div class="modal-stack">Go · Java · Spring · MongoDB · AWS ECS · AWS Lambda · AWS S3 · MSA</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 7 -->
+<div id="modal7" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal7')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-badge">Project 07 · 더커머스</div>
+      <h2 class="modal-title">위탁 상품 구조 통합 및 판매자 인터페이스 개선</h2>
+      <div class="modal-meta">
+        <span>🔧 Java · Spring · MongoDB · AWS Lambda</span>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal7')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">개요</div>
+        <p class="modal-desc">
+          위탁몰에서 수집되는 상품은 기존 원셀 상품과 구조가 달라, 판매자들이 사용하기 어렵다는 피드백이 있었습니다.
+          위탁 상품과 기존 상품 구조를 통합하고, API 구조를 일관되게 개선하여 사용성과 시스템 통합성을 확보한 프로젝트입니다.
         </p>
       </div>
 
@@ -1543,24 +1624,74 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 작업</div>
         <ul class="modal-list">
-          <li>Java 인터페이스를 사용하여 공통적인 기능을 묶고 재사용성과 확장성을 향상</li>
-          <li>위탁 상품의 구조와 데이터 구조를 기존 상품과 동일하게 통합</li>
-          <li>판매자가 필요에 따라 위탁 상품을 원셀 상품으로 전환할 수 있는 기능 추가</li>
+          <li>기존 상품과 위탁 상품 간의 데이터 구조 통합 및 NoSQL 기반 마이그레이션 수행</li>
+          <li>위탁 상품 API를 기존 상품 API와 동일한 방식으로 개선하여 기존 인터페이스와 동일하게 사용할 수 있도록 설계</li>
+          <li>판매자가 상품을 위탁 상품과 SKU 상품 간에 전환할 수 있는 기능 및 전환 API 설계 및 구현</li>
+          <li>인터페이스 기반 설계로 구조 재사용성과 확장성 향상</li>
         </ul>
       </div>
 
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>원셀 상품과 위탁 상품의 구조를 통합하여 판매자들이 더욱 쉽게 사용할 수 있게 개선</li>
-          <li>원셀 상품과 위탁 상품 간의 전환 기능을 추가하여 판매자가 유연하게 상품을 관리하고 판매할 수 있도록 개선</li>
-          <li>인터페이스를 사용하여 추후 다른 위탁 쇼핑몰이 연동되더라도 쉽게 확장할 수 있도록 설계</li>
+          <li>구조 통합을 통해 판매자 러닝 커브 감소 및 유입률 증가</li>
+          <li>상품 전환 기능 추가로 판매 유연성 및 마케팅 전략 대응력 향상</li>
+          <li>기존 원셀 재고 관리 시스템과 연동하여 재고 및 가격 정보를 통일시켜 관리 가능하도록 변경</li>
         </ul>
       </div>
 
       <div class="modal-section">
         <div class="modal-section-title">사용 기술</div>
-        <div class="modal-stack">Java · Spring · Python · Flask · AWS Lambda · MongoDB · NoSQL 데이터 마이그레이션</div>
+        <div class="modal-stack">Java · Spring · MongoDB · AWS Lambda · NoSQL 마이그레이션</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 8 -->
+<div id="modal8" class="modal-overlay" onclick="closeModalOnOverlay(event, 'modal8')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-badge">Project 08 · 더커머스</div>
+      <h2 class="modal-title">Zipkin 기반 MSA 로그 트레이싱 시스템 구축</h2>
+      <div class="modal-meta">
+        <span>🔧 Zipkin · Elasticsearch · Git Submodule · Python · Flask · Java · Spring · AWS Lambda</span>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal8')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">개요</div>
+        <p class="modal-desc">
+          서비스는 MSA 구조로 운영되고 있었으나, Java Spring과 Python Flask 간 로그 추적 방식이 달라 서비스 간 호출 흐름을 추적하기 어려운 문제가 존재했습니다.
+          Zipkin 및 Elasticsearch 기반의 통합 로그 추적 시스템을 도입하고, Python 쪽에서도 직접 추적 로직을 구현하여 전체 호출 경로를 시각화하고 디버깅 효율성을 높인 프로젝트입니다.
+        </p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">주요 작업</div>
+        <ul class="modal-list">
+          <li>Python Flask 서비스에 Zipkin 추적 로직을 데코레이터 기반으로 직접 구현</li>
+          <li>Java Spring, Python Flask, AWS Lambda 등 다양한 서비스 간 Trace ID 공유 및 로그 통합 관리 설계</li>
+          <li>Elasticsearch를 통한 로그 검색 환경 구축 및 AWS CloudWatch 연동</li>
+          <li>MSA 구조에서의 서비스 호출 흐름 추적 및 에러 트레이싱 기능 설계 및 구현</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">주요 성과</div>
+        <ul class="modal-list modal-achievement">
+          <li>MSA 구조 내 서비스 간 로그 연계를 통해 장애 추적 시간 단축 및 이슈 대응 속도 향상</li>
+          <li>Zipkin 도입으로 기능 간 호출 흐름을 시각화하고 에러 처리 추적 간편화</li>
+          <li>Submodule을 이용한 동일 언어들 상에서 간편하게 추가 삭제 가능하도록 기능 개발</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">사용 기술</div>
+        <div class="modal-stack">Java · Spring · Python · Flask · Zipkin · Elasticsearch · AWS Lambda · AWS CloudWatch · AWS EC2 · AWS SQS · MSA</div>
       </div>
 
     </div>
