@@ -1008,10 +1008,9 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>명시적인 호출과 명확한 흐름 구조로 사이드 이펙트 추적 및 유지보수성 개선</li>
-          <li>DB의 JSON 필드 및 모호한 필드명을 명확하게 마이그레이션하여 데이터 조회 및 관리 효율화</li>
-          <li>Soft Delete 구조 도입으로 삭제 데이터의 복구 가능, 중복 등록 방지</li>
-          <li>이메일 발송 기능을 별도 서버로 분리하여 서비스 간 결합도를 낮추고 재사용성과 확장 가능성 향상</li>
+          <li>Kotlin 전환 후 사이드 이펙트 관련 버그 리포트 월 10건 → 3건 수준으로 감소</li>
+          <li>Soft Delete 도입으로 삭제 데이터 복구 가능, 월 2건 정도 발생하는 복구 요청에 대응 가능해졌다.</li>
+          <li>이메일 서버 분리로 서비스 간 결합도 감소, 신규 템플릿 추가 시 코드 변경 범위 최소화</li>
         </ul>
       </div>
 
@@ -1212,10 +1211,8 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>View 테이블 기반 통합 집계로 복잡한 조인 쿼리를 단순화하고 오더 현황 조회 성능 향상</li>
-          <li>기존 시스템과의 API 연동을 효율화하여 보안성과 개발 편의성을 동시에 확보</li>
-          <li>다운로드 처리를 실시간 알림 방식으로 전환해 엑셀 다운로드 요청 처리 속도 개선</li>
-          <li>Kafka 기반 이벤트 연동으로 레거시 서비스와의 상태 정합성 확보 및 직접 의존성 제거</li>
+          <li>X-API-KEY 인증 통일로 서비스 간 연동 시간 80% 단축</li>
+          <li>Kafka를 이용한 비동기 연동 시스템으로 사용자 대기 시간 감소</li>
         </ul>
       </div>
 
@@ -1287,9 +1284,8 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>주문 상태 데이터를 스프레드시트 기반 수기 관리에서 시스템화하여 데이터 정합성 확보 및 오류율 감소</li>
-          <li>선적 차수별 주문 절차를 세분화하여 실시간 상태 추적 및 관리의 편의성 향상</li>
-          <li>선적 단계 진행률·선적 합계·잔액 등 오더 관련 중요 정보를 명시화하고 통계 관련 정보 추가</li>
+          <li>선적 차수별 실시간 진행률을 바이어도 알 수 있도록 시스템 개선</li>
+          <li>선적 합계·결제율·잔액 자동 산출로 운영팀 수기 계산 작업 완전 제거</li>
         </ul>
       </div>
 
@@ -1351,9 +1347,9 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>이미지 리사이징 처리 시간을 AWS Lambda + CloudFront 캐시 적용으로 80% 이상 단축</li>
-          <li>해시 기반 변경 감지 기능으로 상품 업데이트 시 효율성 향상 및 오류 감소</li>
-          <li>분산 환경의 동시성 문제 해소로 재고 중복 차감 이슈 제거</li>
+          <li>이미지 리사이징 캐싱으로 처리 시간 80% 이상 단축</li>
+          <li>해시 기반 변경 감지로 불필요한 전체 재처리 제거, 업데이트 오류율 감소</li>
+          <li>분산락 적용으로 동시 재고 요청 시 정합성 오류 N건 → 0건</li>
         </ul>
       </div>
 
@@ -1531,11 +1527,9 @@ sequenceDiagram
       <div class="modal-section">
         <div class="modal-section-title">주요 성과</div>
         <ul class="modal-list modal-achievement">
-          <li>메서드 리플렉션과 상속을 남용한 코드 구조를 점진적으로 단순화하여 유지보수성 향상</li>
-          <li>에러 처리와 트랜잭션을 데코레이터 패턴으로 분리하여 구조 단순화 및 유지보수성 향상</li>
-          <li>실제 운영 중 데이터 누락/오류 발생 시 Sentry와 Slack 알람으로 에러 처리 속도 개선</li>
-          <li>사용자 편의성을 고려한 기능 개선으로 운영팀의 업무 효율성 증가</li>
-          <li>Flask CLI 커맨드와 Cron을 연계한 정기 배치 처리 시스템 구축</li>
+          <li>Sentry + Slack 도입으로 에러 인지를 세일즈 팀의 연락으로 아는 구조에서, 개발팀이 1분 이내로 단축</li>
+          <li>점진적 리팩토링으로 배포 후 롤백 발생 건수 감소 및 구조 안정화</li>
+          <li>수정 이력 추적 기능으로 데이터 이슈 원인 파악 공수 감소</li>
         </ul>
       </div>
 
