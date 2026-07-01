@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기술블로그 | 이찬우</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<header class="blog-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">이찬우<span>.</span> 기술블로그</a>
+    <a href="../index.html#hero" class="back-link">← 포트폴리오로</a>
+  </div>
+</header>
+
+<main class="blog-container">
+  <div class="series-tabs" id="series-tabs"></div>
+  <div class="blog-layout">
+    <aside class="tag-sidebar">
+      <h3>태그</h3>
+      <div class="tag-list" id="tag-list"></div>
+    </aside>
+    <div class="post-list" id="post-list"></div>
+  </div>
+</main>
+
+<script src="blog-common.js"></script>
+<script src="posts.js"></script>
+<script>
+  let allPosts = [];
+  let activeSeries = null;
+  let activeTag = null;
+
+  function parseHash() {
+    const params = new URLSearchParams(location.hash.replace(/^#/, ''));
+    activeSeries = params.get('series');
+    activeTag = params.get('tag');
+  }
+
+  function updateHash() {
+    const params = new URLSearchParams();
+    if (activeSeries) params.set('series', activeSeries);
+    if (activeTag) params.set('tag', activeTag);
+    location.hash = params.toString();
+  }
+
+  async function loadPosts() {
+    const results = [];
+    for (const path of POSTS) {
+      try {
+        const raw = await fetchPostRaw(path);
+        const { data, body } = parseFrontmatter(raw);
+        const filename = path.split('/').pop().replace(/\.md$/, '');
+        results.push({
+          path,
+          series: seriesFromPath(path),
+          title: extractTitle(body, filename),
+          date: typeof data.created_at === 'string' ? data.created_at : '',
+          updated: typeof data.updated_at === 'string' ? data.updated_at : '',
+          tags: Array.isArray(data.tags) ? data.tags : [],
+          excerpt: extractExcerpt(body, 100)
+        });
+      } catch (e) {
+        console.error('Failed to load post', path, e);
+      }
+    }
+    return results;
+  }
+
+  function renderSeriesTabs() {
+    const seriesKeys = [...new Set(allPosts.map((p) => p.series))];
+    const el = document.getElementById('series-tabs');
+    el.innerHTML = '';
+    const allTab = document.createElement('button');
+    allTab.className = 'series-tab' + (activeSeries ? '' : ' active');
+    allTab.textContent = '전체';
+    allTab.onclick = () => { activeSeries = null; updateHash(); render(); };
+    el.appendChild(allTab);
+    seriesKeys.forEach((key) => {
+      const tab = document.createElement('button');
+      tab.className = 'series-tab' + (activeSeries === key ? ' active' : '');
+      tab.textContent = seriesLabel(key);
+      tab.onclick = () => { activeSeries = key; updateHash(); render(); };
+      el.appendChild(tab);
+    });
+  }
+
+  function renderTagList() {
+    const tagSet = new Set();
+    allPosts.forEach((p) => p.tags.forEach((t) => tagSet.add(t)));
+    const el = document.getElementById('tag-list');
+    el.innerHTML = '';
+    if (tagSet.size === 0) {
+      el.innerHTML = '<p style="color:var(--text-muted);font-size:0.8rem;">태그 없음</p>';
+      return;
+    }
+    [...tagSet].sort().forEach((tag) => {
+      const btn = document.createElement('button');
+      btn.className = 'tag-item' + (activeTag === tag ? ' active' : '');
+      btn.textContent = '#' + tag;
+      btn.onclick = () => {
+        activeTag = activeTag === tag ? null : tag;
+        updateHash(); render();
+      };
+      el.appendChild(btn);
+    });
+  }
+
+  function renderPostList() {
+    const filtered = allPosts.filter((p) => {
+      if (activeSeries && p.series !== activeSeries) return false;
+      if (activeTag && !p.tags.includes(activeTag)) return false;
+      return true;
+    });
+    const el = document.getElementById('post-list');
+    el.innerHTML = '';
+    if (filtered.length === 0) {
+      el.innerHTML = '<p class="blog-error">해당하는 글이 없습니다.</p>';
+      return;
+    }
+    filtered.forEach((p) => {
+      const card = document.createElement('a');
+      card.className = 'post-card';
+      card.href = 'post.html?path=' + encodeURIComponent(p.path);
+      card.innerHTML = `
+        <div class="post-card-title">${p.title}</div>
+        <div class="post-card-meta">
+          <span class="post-card-series">${seriesLabel(p.series)}</span>
+          ${p.date ? `<span>작성 ${p.date}</span>` : ''}
+          ${p.updated && p.updated !== p.date ? `<span>수정 ${p.updated}</span>` : ''}
+        </div>
+        <div class="post-card-excerpt">${p.excerpt}</div>
+        ${p.tags.length ? `<div class="post-card-tags">${p.tags.map((t) => `<span class="post-tag-pill">#${t}</span>`).join('')}</div>` : ''}
+      `;
+      el.appendChild(card);
+    });
+  }
+
+  function render() {
+    renderSeriesTabs();
+    renderTagList();
+    renderPostList();
+  }
+
+  window.addEventListener('hashchange', () => { parseHash(); render(); });
+
+  (async function init() {
+    parseHash();
+    allPosts = await loadPosts();
+    render();
+  })();
+</script>
+</body>
+</html>
