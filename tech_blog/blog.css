@@ -97,6 +97,14 @@ a { color: inherit; text-decoration: none; }
 .code-copy-btn:hover { background: rgba(255,255,255,0.18); }
 .post-body :not(pre) > code { background: var(--surface2); padding: 0.1em 0.4em; border-radius: 4px; }
 .post-body blockquote { border-left: 3px solid var(--border-accent); padding-left: 1rem; color: var(--text-secondary); margin-bottom: 1rem; }
+.post-body .mermaid {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
 .post-body img { max-width: 100%; height: auto; display: block; margin: 0 auto 1rem; border-radius: var(--radius); }
 .post-body ul, .post-body ol { padding-left: 1.4rem; margin-bottom: 1rem; }
 .post-body li { margin-bottom: 0.35rem; }

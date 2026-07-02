@@ -400,12 +400,12 @@
     #mermaid-lightbox.open { display: flex; }
     #mermaid-lightbox-inner {
       background: #fff; border-radius: 12px; padding: 2rem;
-      width: 90vw; max-height: 90vh; overflow: auto;
+      width: 90vw; height: 85vh; overflow: hidden;
       box-shadow: 0 8px 40px rgba(0,0,0,0.35);
     }
     #mermaid-lightbox-inner svg {
-      width: 100% !important; height: auto !important;
-      max-width: none !important; min-width: 600px;
+      width: 100% !important; height: 100% !important;
+      max-width: none !important;
     }
     #mermaid-lightbox-close {
       position: fixed; top: 1.2rem; right: 1.4rem;
@@ -443,9 +443,7 @@
       <li><a href="#projects">프로젝트</a></li>
       <li><a href="#certifications">자격증</a></li>
       <li><a href="#contact">연락처</a></li>
-      <!-- 임시: 기존 링크는 아래 주석 처리, 임시로 velog로 연결 -->
-      <!-- <li><a href="tech_blog/index.html">기술블로그</a></li> -->
-      <li><a href="https://velog.io/@alphanewbie/posts">기술블로그</a></li>
+      <li><a href="tech_blog/index.html">기술블로그</a></li>
     </ul>
   </div>
 </nav>
@@ -1706,7 +1704,8 @@ sequenceDiagram
   <div id="mermaid-lightbox-inner"></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.2/dist/svg-pan-zoom.min.js"></script>
 <script>
   mermaid.initialize({
     startOnLoad: false,
@@ -1757,10 +1756,19 @@ sequenceDiagram
     cloned.removeAttribute('width');
     cloned.removeAttribute('height');
     cloned.style.width = '100%';
-    cloned.style.height = 'auto';
+    cloned.style.height = '100%';
+    cloned.style.maxWidth = 'none';
     inner.appendChild(cloned);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
+    svgPanZoom(cloned, {
+      controlIconsEnabled: true,
+      fit: true,
+      center: true,
+      minZoom: 0.4,
+      maxZoom: 10,
+      zoomScaleSensitivity: 0.3
+    });
   });
 
   document.getElementById('mermaid-lightbox').addEventListener('click', function(e) {

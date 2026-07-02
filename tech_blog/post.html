@@ -26,7 +26,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/http.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.2/dist/svg-pan-zoom.min.js"></script>
 <script src="blog-common.js"></script>
 <script>
   mermaid.initialize({ startOnLoad: false, theme: 'default' });
@@ -51,8 +52,7 @@
     const title = extractTitle(body, filename);
     const series = seriesFromPath(path);
     const tags = Array.isArray(data.tags) ? data.tags : [];
-    const date = typeof data.created_at === 'string' ? data.created_at : '';
-    const updated = typeof data.updated_at === 'string' ? data.updated_at : '';
+    const date = typeof data.date === 'string' ? data.date : '';
 
     const { text: withPlaceholders, blocks: mermaidBlocks } = extractMermaidBlocks(body);
     const transformed = transformCallouts(withPlaceholders);
@@ -62,8 +62,7 @@
       <div class="post-detail-header">
         <div class="post-card-meta">
           <span class="post-card-series">${seriesLabel(series)}</span>
-          ${date ? `<span>작성 ${date}</span>` : ''}
-          ${updated && updated !== date ? `<span>수정 ${updated}</span>` : ''}
+          ${date ? `<span>${date}</span>` : ''}
         </div>
         <h1 class="post-detail-title">${title}</h1>
         ${tags.length ? `<div class="post-card-tags">${tags.map((t) => `<span class="post-tag-pill">#${t}</span>`).join('')}</div>` : ''}
@@ -87,7 +86,23 @@
       pre.appendChild(button);
     });
     const mermaidNodes = container.querySelectorAll('.mermaid');
-    if (mermaidNodes.length > 0) mermaid.run({ nodes: mermaidNodes });
+    if (mermaidNodes.length > 0) {
+      await mermaid.run({ nodes: mermaidNodes });
+      container.querySelectorAll('.mermaid svg').forEach((svg) => {
+        const renderedHeight = svg.getBoundingClientRect().height;
+        svg.style.maxWidth = 'none';
+        svg.style.width = '100%';
+        svg.style.height = Math.min(Math.max(renderedHeight, 240), 640) + 'px';
+        svgPanZoom(svg, {
+          controlIconsEnabled: true,
+          fit: true,
+          center: true,
+          minZoom: 0.4,
+          maxZoom: 10,
+          zoomScaleSensitivity: 0.3
+        });
+      });
+    }
   }
 
   init();
