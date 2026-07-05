@@ -131,4 +131,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) {
   .blog-layout { grid-template-columns: 1fr; }
+  .tag-sidebar { display: none; }
+  .post-card-tags { display: none; }
 }
