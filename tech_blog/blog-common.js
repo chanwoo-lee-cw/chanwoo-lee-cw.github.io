@@ -1,7 +1,11 @@
 const SERIES_LABELS = {
-  redis: 'Redis',
-  server: 'Server',
-  Spring: 'Spring'
+  'redis': 'Redis',
+  'server': 'Server',
+  'Spring': 'Spring',
+  'Kafka': 'Kafka',
+  'Design-Pattern': '디자인 패턴',
+  'Markdown': 'Markdown',
+  'development_tools': '개발 툴'
 };
 
 function seriesFromPath(path) {
