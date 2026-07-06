@@ -56,7 +56,7 @@
     const updated = typeof data.updated_at === 'string' ? data.updated_at : '';
 
     const { text: withPlaceholders, blocks: mermaidBlocks } = extractMermaidBlocks(body);
-    const transformed = transformCallouts(withPlaceholders);
+    const transformed = fixBoldFlanking(transformCallouts(withPlaceholders));
     const html = renderMermaidBlocks(marked.parse(transformed), mermaidBlocks);
 
     container.innerHTML = `

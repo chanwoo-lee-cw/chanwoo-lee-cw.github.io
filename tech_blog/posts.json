@@ -1,61 +1,5 @@
 [
   {
-    "path": "redis/Redis.md",
-    "series": "redis",
-    "title": "Redis",
-    "date": "2026-06-23",
-    "updated": "2026-07-02",
-    "tags": [
-      "redis",
-      "cache",
-      "in-memory",
-      "nosql"
-    ],
-    "excerpt": "Redis란? DB가 있는데도 Redis를 사용하는 이유는, 일반적인 RDB는 디스크에 데이터를 저장하기 때문에 영속성은 좋지만 조회 속도가 상대적으로 느리고, 자주 조회할수록 디…"
-  },
-  {
-    "path": "redis/LuaScript.md",
-    "series": "redis",
-    "title": "Lua Script",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "redis",
-      "lua",
-      "script"
-    ],
-    "excerpt": "Lua Script란? 핵심 특징 - 경량성과 임베디드 친화적 - 인터프리터가 200KB 정도로 매우 작음 - C로 작성되어 있고 C API가 깔끔해서 다른 프로그램에 내장하기 쉬…"
-  },
-  {
-    "path": "server/OAuth2와_OIDC.md",
-    "series": "server",
-    "title": "OAuth2와 OIDC",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "oauth2",
-      "oidc",
-      "auth",
-      "jwt",
-      "security"
-    ],
-    "excerpt": "들어가며 전 직장에서 상사분에게 요즘 로그인을 어떻게 만드는지에 대해 물어본 경험이 있었다. 그때, 상사분께서 최근에는 OAuth2와 OIDC를 이용해서 로그인 시스템을 만든다고 …"
-  },
-  {
-    "path": "server/CQRS.md",
-    "series": "server",
-    "title": "CQRS",
-    "date": "2026-07-03",
-    "updated": "2026-07-03",
-    "tags": [
-      "cqrs",
-      "architecture",
-      "read-write-separation",
-      "server"
-    ],
-    "excerpt": "CQRS란 보통 읽기와 쓰기는 사용 횟수도 다르고 사용 방식도 다르다. 보통 상품 같은 경우는 조회는 초당 수십건도 나오지만, 해당 상품을 수정하는 부분은 거의 주에 한두번이 나올…"
-  },
-  {
     "path": "server/vertx.md",
     "series": "server",
     "title": "Vert.x",
@@ -69,145 +13,6 @@
       "reactive"
     ],
     "excerpt": "Vert.x란? Vert.x의 철학 Vert.x는 Node.js로 부터 영향을 받은 프로젝트로써, Node.js처럼 Event-based 프로그래밍 모델을 제공하는 서버 프레임워크…"
-  },
-  {
-    "path": "Spring/WebFlux.md",
-    "series": "Spring",
-    "title": "WebFlux",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "webflux",
-      "reactive",
-      "async",
-      "non-blocking"
-    ],
-    "excerpt": "WebFlux란? 즉, 많은 요청을 동시에 처리해야하는 서비스에서, 쓰레드를 더 적게 사용하면서 효율적으로 동작하도록 만든 웹 기술 WebFlux의 목표 - 비동기 및 이벤트 기반…"
-  },
-  {
-    "path": "Spring/Spring AOP.md",
-    "series": "Spring",
-    "title": "Spring AOP",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "aop",
-      "proxy"
-    ],
-    "excerpt": "AOP란? 객체 지향 프로그래밍 패러다임을 보완하는 기술로써 메소드나 객체의 기능을 핵심 관심사(Core Concern)와 공통 관심사(Cross-cutting Concern)로 …"
-  },
-  {
-    "path": "Spring/Spring Batch.md",
-    "series": "Spring",
-    "title": "Spring batch",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "batch",
-      "spring-batch"
-    ],
-    "excerpt": "들어가며 전 직장에는 비용 문제로 여러 역할이 하나로 통합된 서버가 있었다. 대량 처리(엑셀 등)를 담당하는 Batch, 스케줄링을 담당하는 Batch Scheduler, 그리고 …"
-  },
-  {
-    "path": "Spring/IoC와_DI.md",
-    "series": "Spring",
-    "title": "IoC와 DI",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "ioc",
-      "di",
-      "dependency-injection"
-    ],
-    "excerpt": "IoC와 DI IoC(제어의 역전) 정의 IoC(Inversion of Control), 즉 제어의 역전을 뜻한다. 개발자가 직접 개체를 생성하거나 라이프 사이클을 관리하는게 아니…"
-  },
-  {
-    "path": "Spring/TransactionalEventListener.md",
-    "series": "Spring",
-    "title": "TransactionalEventListener",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "transaction",
-      "event",
-      "event-listener"
-    ],
-    "excerpt": "@TransactionalEventListener 어노테이션이란? @TransactionalEventListener 는 데이터베이스 트랜잭션이 완료되는 시점(커밋, 롤백 등)에 따…"
-  },
-  {
-    "path": "Spring/Filter와 Interceptor.md",
-    "series": "Spring",
-    "title": "Filter와 Interceptor",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "filter",
-      "interceptor",
-      "servlet"
-    ],
-    "excerpt": "Filter란 Spring에서 Web Application에서 관리되는 영역으로 HTTP 요청을 컨트롤러에 전달하기 전에 처리할 수 있는 프레임 워크 기능이다. Filter란 We…"
-  },
-  {
-    "path": "Spring/Spring의 전역 예외 커스텀.md",
-    "series": "Spring",
-    "title": "Spring의 전역 예외 커스텀",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "exception",
-      "error-handling",
-      "rfc7807"
-    ],
-    "excerpt": "시작하며 개발을 하다보면 커스텀 에러 메세지를 작성하는것은 반쯤 필수가 된다. 그렇지만, 이때 회사의 표준화된 에러 포멧이 있다면 좋겠지만, 이때 종종 내가 만들어야 하는 경우가 …"
-  },
-  {
-    "path": "Spring/Circuit_Breaker.md",
-    "series": "Spring",
-    "title": "서킷 브레이커 (Circuit Breaker)",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "circuit-breaker",
-      "resilience",
-      "fault-tolerance"
-    ],
-    "excerpt": "서킷 브레이커란? 본래 사전적 정의 개발적인 의미 즉, 시스템의 안정성 향상을 위해 사용한다. 분리된 서비스 간 통신에서 발생 가능한 장애 상황을 관리하고, 특정 서비스의 장애가 …"
-  },
-  {
-    "path": "Spring/Spring에서 Redis를 이용한 캐싱 방법.md",
-    "series": "Spring",
-    "title": "Spring 환경에서 Redis를 이용한 캐싱 방법",
-    "date": "2026-07-02",
-    "updated": "2026-07-02",
-    "tags": [
-      "spring",
-      "redis",
-      "cache",
-      "caching"
-    ],
-    "excerpt": "Spring 환경에서 Redis를 이용한 캐싱 방법 Gradle 설정 환경 변수 설정 Redis Config 설정 설정 옵션들 - LettuceConnectionFactory Be…"
-  },
-  {
-    "path": "Spring/Spring HTTP Interface.md",
-    "series": "Spring",
-    "title": "Spring HTTP Interface",
-    "date": "2026-07-03",
-    "updated": "2026-07-03",
-    "tags": [
-      "spring",
-      "http-interface",
-      "rest-client",
-      "webclient"
-    ],
-    "excerpt": "들어가며 전직장에서 restClient 대신 단순한 어노테이션만 사용해서 HTTP 요청하고 있었다. 복잡한 요청방식 대신 프록시 하나만 추가하고 그 이후엔 엔드포인트만 생성해서 요…"
   },
   {
     "path": "Kafka/Kafka란?.md",
@@ -446,5 +251,200 @@
       "tool"
     ],
     "excerpt": "0. 개요 이직을 하거나 새 맥북을 받았을 때, 사용자별로 익숙한 설정을 하게 되는데, 그런 저를 위해 작성했습니다. 앞으로 추가적으로 설정하거나 좋은 프로그램 및 플러그인을 찾았…"
+  },
+  {
+    "path": "server/CQRS.md",
+    "series": "server",
+    "title": "CQRS",
+    "date": "2026-07-03",
+    "updated": "2026-07-03",
+    "tags": [
+      "cqrs",
+      "architecture",
+      "read-write-separation",
+      "server"
+    ],
+    "excerpt": "CQRS란 보통 읽기와 쓰기는 사용 횟수도 다르고 사용 방식도 다르다. 보통 상품 같은 경우는 조회는 초당 수십건도 나오지만, 해당 상품을 수정하는 부분은 거의 주에 한두번이 나올…"
+  },
+  {
+    "path": "Spring/Spring HTTP Interface.md",
+    "series": "Spring",
+    "title": "Spring HTTP Interface",
+    "date": "2026-07-03",
+    "updated": "2026-07-03",
+    "tags": [
+      "spring",
+      "http-interface",
+      "rest-client",
+      "webclient"
+    ],
+    "excerpt": "들어가며 전직장에서 restClient 대신 단순한 어노테이션만 사용해서 HTTP 요청하고 있었다. 복잡한 요청방식 대신 프록시 하나만 추가하고 그 이후엔 엔드포인트만 생성해서 요…"
+  },
+  {
+    "path": "redis/LuaScript.md",
+    "series": "redis",
+    "title": "Lua Script",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "redis",
+      "lua",
+      "script"
+    ],
+    "excerpt": "Lua Script란? 핵심 특징 - 경량성과 임베디드 친화적 - 인터프리터가 200KB 정도로 매우 작음 - C로 작성되어 있고 C API가 깔끔해서 다른 프로그램에 내장하기 쉬…"
+  },
+  {
+    "path": "server/OAuth2와_OIDC.md",
+    "series": "server",
+    "title": "OAuth2와 OIDC",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "oauth2",
+      "oidc",
+      "auth",
+      "jwt",
+      "security"
+    ],
+    "excerpt": "들어가며 전 직장에서 상사분에게 요즘 로그인을 어떻게 만드는지에 대해 물어본 경험이 있었다. 그때, 상사분께서 최근에는 OAuth2와 OIDC를 이용해서 로그인 시스템을 만든다고 …"
+  },
+  {
+    "path": "Spring/WebFlux.md",
+    "series": "Spring",
+    "title": "WebFlux",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "webflux",
+      "reactive",
+      "async",
+      "non-blocking"
+    ],
+    "excerpt": "WebFlux란? 즉, 많은 요청을 동시에 처리해야하는 서비스에서, 쓰레드를 더 적게 사용하면서 효율적으로 동작하도록 만든 웹 기술 WebFlux의 목표 - 비동기 및 이벤트 기반…"
+  },
+  {
+    "path": "Spring/Spring AOP.md",
+    "series": "Spring",
+    "title": "Spring AOP",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "aop",
+      "proxy"
+    ],
+    "excerpt": "AOP란? 객체 지향 프로그래밍 패러다임을 보완하는 기술로써 메소드나 객체의 기능을 핵심 관심사(Core Concern)와 공통 관심사(Cross-cutting Concern)로 …"
+  },
+  {
+    "path": "Spring/Spring Batch.md",
+    "series": "Spring",
+    "title": "Spring batch",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "batch",
+      "spring-batch"
+    ],
+    "excerpt": "들어가며 전 직장에는 비용 문제로 여러 역할이 하나로 통합된 서버가 있었다. 대량 처리(엑셀 등)를 담당하는 Batch, 스케줄링을 담당하는 Batch Scheduler, 그리고 …"
+  },
+  {
+    "path": "Spring/IoC와_DI.md",
+    "series": "Spring",
+    "title": "IoC와 DI",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "ioc",
+      "di",
+      "dependency-injection"
+    ],
+    "excerpt": "IoC와 DI IoC(제어의 역전) 정의 IoC(Inversion of Control), 즉 제어의 역전을 뜻한다. 개발자가 직접 개체를 생성하거나 라이프 사이클을 관리하는게 아니…"
+  },
+  {
+    "path": "Spring/TransactionalEventListener.md",
+    "series": "Spring",
+    "title": "TransactionalEventListener",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "transaction",
+      "event",
+      "event-listener"
+    ],
+    "excerpt": "@TransactionalEventListener 어노테이션이란? @TransactionalEventListener 는 데이터베이스 트랜잭션이 완료되는 시점(커밋, 롤백 등)에 따…"
+  },
+  {
+    "path": "Spring/Filter와 Interceptor.md",
+    "series": "Spring",
+    "title": "Filter와 Interceptor",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "filter",
+      "interceptor",
+      "servlet"
+    ],
+    "excerpt": "Filter란 Spring에서 Web Application에서 관리되는 영역으로 HTTP 요청을 컨트롤러에 전달하기 전에 처리할 수 있는 프레임 워크 기능이다. Filter란 We…"
+  },
+  {
+    "path": "Spring/Spring의 전역 예외 커스텀.md",
+    "series": "Spring",
+    "title": "Spring의 전역 예외 커스텀",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "exception",
+      "error-handling",
+      "rfc7807"
+    ],
+    "excerpt": "시작하며 개발을 하다보면 커스텀 에러 메세지를 작성하는것은 반쯤 필수가 된다. 그렇지만, 이때 회사의 표준화된 에러 포멧이 있다면 좋겠지만, 이때 종종 내가 만들어야 하는 경우가 …"
+  },
+  {
+    "path": "Spring/Circuit_Breaker.md",
+    "series": "Spring",
+    "title": "서킷 브레이커 (Circuit Breaker)",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "circuit-breaker",
+      "resilience",
+      "fault-tolerance"
+    ],
+    "excerpt": "서킷 브레이커란? 본래 사전적 정의 개발적인 의미 즉, 시스템의 안정성 향상을 위해 사용한다. 분리된 서비스 간 통신에서 발생 가능한 장애 상황을 관리하고, 특정 서비스의 장애가 …"
+  },
+  {
+    "path": "Spring/Spring에서 Redis를 이용한 캐싱 방법.md",
+    "series": "Spring",
+    "title": "Spring 환경에서 Redis를 이용한 캐싱 방법",
+    "date": "2026-07-02",
+    "updated": "2026-07-02",
+    "tags": [
+      "spring",
+      "redis",
+      "cache",
+      "caching"
+    ],
+    "excerpt": "Spring 환경에서 Redis를 이용한 캐싱 방법 Gradle 설정 환경 변수 설정 Redis Config 설정 설정 옵션들 - LettuceConnectionFactory Be…"
+  },
+  {
+    "path": "redis/Redis.md",
+    "series": "redis",
+    "title": "Redis",
+    "date": "2026-06-23",
+    "updated": "2026-07-02",
+    "tags": [
+      "redis",
+      "cache",
+      "in-memory",
+      "nosql"
+    ],
+    "excerpt": "Redis란? DB가 있는데도 Redis를 사용하는 이유는, 일반적인 RDB는 디스크에 데이터를 저장하기 때문에 영속성은 좋지만 조회 속도가 상대적으로 느리고, 자주 조회할수록 디…"
   }
 ]

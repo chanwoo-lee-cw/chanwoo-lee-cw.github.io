@@ -105,6 +105,36 @@ function renderInlineMarkdown(text) {
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 }
 
+// CommonMark won't close a **bold** run when the closing ** is preceded by
+// punctuation and immediately followed by a non-space, non-punctuation char
+// (e.g. `**중간 저장소(버퍼 역할)**를`). Marked follows that rule, so such bold
+// text renders as literal asterisks. We insert an invisible zero-width space
+// before the offending closing ** so the run becomes a valid closer. Code
+// (fenced blocks and inline code) is protected so its ** are never touched.
+function fixBoldFlanking(markdown) {
+  const protectedSegments = [];
+  const stash = (match) => {
+    // Wrap the index in private-use sentinels so the token is never mistaken
+    // for punctuation by the bold regex, and restoration cannot collide with
+    // real digits already in the text.
+    const token = "\uE000" + protectedSegments.length + "\uE001";
+    protectedSegments.push(match);
+    return token;
+  };
+  // Protect fenced blocks and inline code in a single left-to-right pass.
+  // One pass (not two) is essential: a token holds no backticks, so once a
+  // fence is stashed the inline-code alternative can never span it, which keeps
+  // tokens from nesting and makes the single-pass restore below exact.
+  const withoutCode = markdown.replace(/```[\s\S]*?```|`[^`]*`/g, stash);
+
+  const fixed = withoutCode.replace(
+    /(\*\*(?!\s)[^*\n]*?\p{P})(\*\*)(?=[^\s\p{P}])/gu,
+    "$1\u200B$2"
+  );
+
+  return fixed.replace(/\uE000(\d+)\uE001/g, (_m, i) => protectedSegments[Number(i)]);
+}
+
 function transformCallouts(markdown) {
   const calloutRegex = /^> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$\n((?:^>.*$\n?)*)/gim;
   return markdown.replace(calloutRegex, (match, rawType, rawBody) => {
@@ -133,6 +163,7 @@ if (typeof module !== 'undefined' && module.exports) {
     extractMermaidBlocks,
     renderMermaidBlocks,
     renderInlineMarkdown,
-    transformCallouts
+    transformCallouts,
+    fixBoldFlanking
   };
 }

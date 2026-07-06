@@ -98,6 +98,11 @@ def build():
             "excerpt": extract_excerpt(body, 100),
         })
 
+    # 목록 노출은 작성일(created_at) 기준 최신순.
+    # 같은 날짜는 posts.js 원본 순서를 유지(파이썬 정렬은 stable),
+    # 날짜 없는 글은 맨 뒤로 밀린다.
+    posts.sort(key=lambda p: p["date"] or "", reverse=True)
+
     with open(OUT_JSON, "w", encoding="utf-8") as f:
         json.dump(posts, f, ensure_ascii=False, indent=2)
         f.write("\n")

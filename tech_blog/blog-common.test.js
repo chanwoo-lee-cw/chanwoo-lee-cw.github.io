@@ -13,7 +13,8 @@ const {
   extractMermaidBlocks,
   renderMermaidBlocks,
   renderInlineMarkdown,
-  transformCallouts
+  transformCallouts,
+  fixBoldFlanking
 } = require('./blog-common.js');
 
 test('seriesFromPath extracts the top-level folder', () => {
@@ -154,3 +155,53 @@ test('transformCallouts leaves normal blockquotes untouched', () => {
   const result = transformCallouts(input);
   assert.strictEqual(result, input);
 });
+
+const ZWSP = '​';
+
+test('fixBoldFlanking makes bold closing after punctuation renderable', () => {
+  const input = '**중간 저장소(버퍼 역할)**를 말한다.';
+  const out = fixBoldFlanking(input);
+  // A zero-width space is inserted right before the closing ** so CommonMark
+  // treats it as a valid closer, and the visible text is unchanged.
+  assert.strictEqual(out, '**중간 저장소(버퍼 역할)' + ZWSP + '**를 말한다.');
+  assert.strictEqual(out.replace(/​/g, ''), input);
+});
+
+test('fixBoldFlanking fixes multiple failing spans on one line', () => {
+  const input = '**생산자(Producer)**와 **소비자(Consumer)**에게';
+  const out = fixBoldFlanking(input);
+  assert.strictEqual(
+    out,
+    '**생산자(Producer)' + ZWSP + '**와 **소비자(Consumer)' + ZWSP + '**에게'
+  );
+});
+
+test('fixBoldFlanking leaves already-valid bold untouched', () => {
+  const inputs = [
+    '**foo**bar',                         // closer preceded by a letter -> valid
+    '**작업 지시(command)** 를 전달',       // closer followed by a space -> valid
+    '**중간 저장소(버퍼 역할)**.',          // closer followed by punctuation -> valid
+  ];
+  for (const input of inputs) {
+    assert.strictEqual(fixBoldFlanking(input), input);
+  }
+});
+
+test('fixBoldFlanking does not touch ** inside inline code', () => {
+  const input = '`a**b)**c` 코드';
+  assert.strictEqual(fixBoldFlanking(input), input);
+});
+
+test('fixBoldFlanking does not touch ** inside a fenced code block', () => {
+  const input = '```js\nconst x = a)**b;\n```';
+  assert.strictEqual(fixBoldFlanking(input), input);
+});
+
+test('fixBoldFlanking never leaks placeholder sentinels around odd backticks', () => {
+  // A doc about backticks can carry unbalanced backticks around fences; code
+  // protection must not nest tokens or leak the private-use sentinels.
+  const input = '`x \`\`\`js\nconst a = b)**c;\n\`\`\` z` 그리고 **끝(end)**임';
+  const out = fixBoldFlanking(input);
+  assert.ok(!/[\uE000\uE001]/.test(out), 'sentinel leaked into output');
+  assert.strictEqual(out.replace(/\u200B/g, ''), input, 'visible text must be preserved');
+})
