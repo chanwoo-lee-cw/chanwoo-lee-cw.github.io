@@ -117,7 +117,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .callout { border-radius: var(--radius); padding: 0.9rem 1.1rem; margin-bottom: 1rem; border-left: 4px solid; }
-.callout-title { font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+.callout-title { display: flex; align-items: center; gap: 0.4rem; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.callout-icon { width: 1em; height: 1em; fill: currentColor; flex-shrink: 0; }
 .callout-note { background: rgba(9,105,218,0.08); border-color: #0969da; }
 .callout-note .callout-title { color: #0969da; }
 .callout-tip { background: rgba(26,127,55,0.08); border-color: #1a7f37; }

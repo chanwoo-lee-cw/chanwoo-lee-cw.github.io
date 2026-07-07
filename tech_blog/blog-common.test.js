@@ -144,10 +144,28 @@ test('transformCallouts converts a GitHub-style alert into a callout div', () =>
   const input = '텍스트\n\n> [!NOTE]\n> 이것은 `코드`와 **굵게**를 포함한다.\n\n끝';
   const result = transformCallouts(input);
   assert.ok(result.includes('<div class="callout callout-note">'));
-  assert.ok(result.includes('<div class="callout-title">NOTE</div>'));
+  // GitHub-style: an icon precedes a Title-case label inside the title.
+  assert.ok(result.includes('<div class="callout-title">'));
+  assert.ok(result.includes('class="callout-icon"'));
+  assert.ok(result.includes('>Note</div>'));
+  assert.ok(!result.includes('>NOTE</div>'));
   assert.ok(result.includes('<code>코드</code>'));
   assert.ok(result.includes('<strong>굵게</strong>'));
   assert.ok(!result.includes('[!NOTE]'));
+});
+
+test('transformCallouts uses the matching icon and label for each alert type', () => {
+  const types = [
+    ['TIP', 'Tip'],
+    ['IMPORTANT', 'Important'],
+    ['WARNING', 'Warning'],
+    ['CAUTION', 'Caution'],
+  ];
+  for (const [raw, label] of types) {
+    const result = transformCallouts('> [!' + raw + ']\n> 본문');
+    assert.ok(result.includes('class="callout-icon"'), raw + ' should have an icon');
+    assert.ok(result.includes('>' + label + '</div>'), raw + ' should show ' + label);
+  }
 });
 
 test('transformCallouts leaves normal blockquotes untouched', () => {
