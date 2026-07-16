@@ -446,5 +446,14 @@
       "nosql"
     ],
     "excerpt": "Redis란? DB가 있는데도 Redis를 사용하는 이유는, 일반적인 RDB는 디스크에 데이터를 저장하기 때문에 영속성은 좋지만 조회 속도가 상대적으로 느리고, 자주 조회할수록 디…"
+  },
+  {
+    "path": "Kafka/Kafka Tombstone.md",
+    "series": "Kafka",
+    "title": "Kafka Tombstone",
+    "date": "",
+    "updated": "",
+    "tags": [],
+    "excerpt": "Kafka Tombstone이란? 요컨데, 발행한 메시지를 삭제할 수 없는 카프카 브로커에서 메시지를 삭제하기 위해 작동하는 메시지를 말한다. Tombstone의 정의 Tombst…"
   }
 ]

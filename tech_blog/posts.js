@@ -23,6 +23,7 @@ const POSTS = [
   'Kafka/Spring Bean.md',
   'Kafka/Spring의 Kafka 환경 구축.md',
   'Kafka/Local-postgreSQL 환경에서 CDC 구축하기.md',
+  'Kafka/Kafka Tombstone.md',
   'Design-Pattern/CQRS.md',
   'Design-Pattern/SAGA_Pattern.md',
   'Design-Pattern/Outbox_Pattern.md',
