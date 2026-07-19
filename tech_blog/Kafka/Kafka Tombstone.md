@@ -1,3 +1,13 @@
+---
+created_at: 2026-07-08
+updated_at: 2026-07-19
+tags:
+  - kafka
+  - tombstone
+  - log-compaction
+  - message-queue
+---
+
 # Kafka Tombstone
 
 ## Kafka Tombstone이란?

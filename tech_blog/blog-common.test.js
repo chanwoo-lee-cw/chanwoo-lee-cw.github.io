@@ -18,13 +18,14 @@ const {
 } = require('./blog-common.js');
 
 test('seriesFromPath extracts the top-level folder', () => {
-  assert.strictEqual(seriesFromPath('redis/Redis.md'), 'redis');
+  assert.strictEqual(seriesFromPath('Redis/Redis.md'), 'Redis');
   assert.strictEqual(seriesFromPath('Spring/Spring Batch.md'), 'Spring');
 });
 
 test('seriesLabel maps known series to display names', () => {
-  assert.strictEqual(seriesLabel('redis'), 'Redis');
-  assert.strictEqual(seriesLabel('server'), 'Server');
+  assert.strictEqual(seriesLabel('Redis'), 'Redis');
+  assert.strictEqual(seriesLabel('Server'), 'Server');
+  assert.strictEqual(seriesLabel('Design Pattern'), '디자인 패턴');
   assert.strictEqual(seriesLabel('Spring'), 'Spring');
 });
 
@@ -34,7 +35,7 @@ test('seriesLabel falls back to the raw key for unknown series', () => {
 
 test('encodePath encodes each path segment but keeps slashes', () => {
   assert.strictEqual(encodePath('Spring/Spring Batch.md'), 'Spring/Spring%20Batch.md');
-  assert.strictEqual(encodePath('redis/Redis.md'), 'redis/Redis.md');
+  assert.strictEqual(encodePath('Redis/Redis.md'), 'Redis/Redis.md');
 });
 
 test('fetchPostRaw returns the response body on success', async () => {
